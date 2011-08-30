@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="Editor">
+    <file>Images/resource-add.png</file>
+    <file>Images/add-folder.png</file>
+    <file>Images/delete.png</file>
+    <file>Images/refresh.png</file>
+  </qresource>
+</RCC>
