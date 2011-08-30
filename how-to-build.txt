@@ -1,0 +1,66 @@
+Шаг 1.
+Установка средств разработки.
+
+Visual Studio 2008 (можно ставить только C++, остальную шляпу отключать)
+Можно поставить еще Visual Assist X (программировать и рефакторить под VS становится порядком удобнее)
+
+Шаг 2.
+Скачать нижеперечисленные внешние зависимости движка:
+
+Основные зависимости:
+Boost: http://sourceforge.net/projects/boost/files/boost/1.47.0/boost_1_47_0.tar.gz/download
+Glm: https://sourceforge.net/projects/ogl-math/files/glm-0.9.0.8/glm-0.9.0.8.zip/download
+Box2D: http://code.google.com/p/box2d/downloads/detail?name=Box2D_v2.2.0.zip
+RapidXml: http://sourceforge.net/projects/rapidxml/files/rapidxml/rapidxml%201.13/rapidxml-1.13.zip/download
+DirectX: http://www.microsoft.com/download/en/details.aspx?displaylang=en&id=10084
+Postgresql: http://www.enterprisedb.com/postgresql-848-installers-win32?ls=Crossover&type=Crossover
+
+Опциональные:
+Qt (нужен для сборки редактора, т.е. для сборки движка и игры - не обязательно):
+Основные библиотеки. QT Library: http://qt.nokia.com/downloads/windows-cpp-vs2008
+Аддон к Visual Studio. QT Visual Studio 2008 add-in: http://qt.nokia.com/downloads/visual-studio-add-in
+WISYWYG редактор интерфейса. QT Creator: http://qt.nokia.com/downloads/qt-creator-binary-for-windows
+
+Шаг 3.
+Распаковать и установить зависимости.
+
+Лучше сделать это в одну папку. В примере будет использоваться C:\Development\
+
+Glm -> C:\Development\glm-0.9.0 (в папке будут doc, glm, util, etc.)
+Box2D -> C:\Development\Box2D_v2.1.2 (в папке будут Box2D, contributions)
+rapidxml-1.13 -> C:\Development\rapidxml-1.13 (в папке будут исходники *.hpp)
+boost -> C:\Development\boost_1_47_0 (в папке будет куча папок)
+
+Directx, Postgresql и Qt просто нужно устанавливать в C:\Development
+
+Шаг 4.
+Сборка boost.
+
+Пуск -> выполнить cmd.
+cd /D C:\Development\boost_1_47_0
+bootstrap.bat
+Потупит и соберет все за пол-часика.
+
+Шаг 5.
+Задать в Visual Studio дополнительные пути к исходникам.
+
+Visual Studio. Tools -> Options -> Projects and Solutions -> VC++ Directories
+Include files:
+C:\Development\rapidxml-1.13
+C:\Development\boost_1_47_0
+C:\Development\Microsoft DirectX SDK (February 2010)\Include
+C:\Development\PostgreSQL\8.4\include
+C:\Development\glm-0.9.0
+C:\Development\Box2D_v2.1.2
+
+Libraries:
+C:\Development\boost_1_47_0\stage\lib
+C:\Development\Microsoft DirectX SDK (February 2010)\Lib\x86
+
+Жмем Ок.
+
+Шаг 6.
+Сборка движка.
+
+Открыть проект editor/editor.sln
+Собрать.
