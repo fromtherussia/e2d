@@ -1,0 +1,4 @@
+#ifndef AIR2D_PHYSIC_SHAPE_LOADER_H
+#define AIR2D_PHYSIC_SHAPE_LOADER_H
+
+#endif
