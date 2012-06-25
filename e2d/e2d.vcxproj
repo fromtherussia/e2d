@@ -108,6 +108,7 @@
     <ClInclude Include="include\e2d\Engine\AbstractEntity.h" />
     <ClInclude Include="include\e2d\Engine\IEntity.h" />
     <ClInclude Include="include\e2d\Engine\IPolygonDestructor.h" />
+    <ClInclude Include="include\e2d\Engine\SceneOptimization.h" />
     <ClInclude Include="include\e2d\Engine\SimplePolygonDestructor.h" />
     <ClInclude Include="include\e2d\Engine\DestructibleEntity.h" />
     <ClInclude Include="include\e2d\DataLoaders\Common.h" />

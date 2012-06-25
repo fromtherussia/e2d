@@ -17,11 +17,20 @@ namespace e2d {
 			};
 		}
 
+		namespace DeferredDataKind {
+			enum Kind {
+				ddkGraphics,
+				ddkPhysics,
+				ddkLogic
+			};
+		};
+
 		class IEntityFactory;
 		class IResourceController;
 		class GraphicMaterialTable;
 		class PhysicMaterialTable;
 		class ComplexPhysicEntity;
+		class Scene;
 	}
 }
 
