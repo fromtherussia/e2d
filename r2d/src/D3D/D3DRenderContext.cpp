@@ -1,28 +1,26 @@
-#include "ICamera.h"
-#include "ITexture.h"
-#include "IEffect.h"
-#include "IMaterial.h"
-#include "IRenderable.h"
-#include "IFactory.h"
+#include "r2d/ICamera.h"
+#include "r2d/ITexture.h"
+#include "r2d/IEffect.h"
+#include "r2d/IMaterial.h"
+#include "r2d/IRenderable.h"
+#include "r2d/IFactory.h"
 
-#include "D3DCommon.h"
-#include "D3DGeometryDefinitions.h"
-#include "D3DUtils.h"
-#include "D3DRenderContext.h"
-#include "D3DCamera.h"
-#include "D3DTexture.h"
-#include "D3DEffect.h"
-#include "D3DMaterial.h"
-#include "D3DFactory.h"
+#include "r2d/D3D/D3DCommon.h"
+#include "r2d/D3D/D3DGeometryDefinitions.h"
+#include "r2d/D3D/D3DUtils.h"
+#include "r2d/D3D/D3DRenderContext.h"
+#include "r2d/D3D/D3DCamera.h"
+#include "r2d/D3D/D3DTexture.h"
+#include "r2d/D3D/D3DEffect.h"
+#include "r2d/D3D/D3DMaterial.h"
+#include "r2d/D3D/D3DFactory.h"
 
 namespace r2d {
-	// D3DRenderContext public
-	
 	D3DRenderContext::D3DRenderContext(HWND window):
-		m_window(window) {
-		m_initialized = false;
-		m_sceneRenderBegan = false;
-		m_done = false;
+		m_window(window),
+		m_initialized(false),
+		m_sceneRenderBegan(false),
+		m_done(false) {
 	}
 
 	D3DRenderContext::~D3DRenderContext() {
@@ -33,7 +31,7 @@ namespace r2d {
 		m_d3dDevice->SetTransform(D3DTS_PROJECTION, &camera.GetProjectionMatrix());
 	}
 
-	LPDIRECT3DDEVICE9& D3DRenderContext::GetDevice() {
+	LPDIRECT3DDEVICE9 D3DRenderContext::GetDevice() const {
 		return m_d3dDevice;
 	}
 
@@ -70,7 +68,7 @@ namespace r2d {
 	// Scene routines
 	
 	void D3DRenderContext::BeginScene() {
-		assert(!m_sceneRenderBegan);
+		CGL_CHECK(!m_sceneRenderBegan);
 
 		m_d3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 0), 1.0f, 0);
 		m_d3dDevice->BeginScene();
@@ -79,7 +77,7 @@ namespace r2d {
 	}
 
 	void D3DRenderContext::EndScene() {
-		assert(m_sceneRenderBegan);
+		CGL_CHECK(m_sceneRenderBegan);
 
 		m_sceneRenderBegan = false;
 
@@ -106,7 +104,7 @@ namespace r2d {
 
 	// On fly render routines
 
-	void D3DRenderContext::RenderPoint(vec2 point, ivec3 color, float pointSize) const {
+	void D3DRenderContext::RenderPoint(const vec2& point, const ivec3& color, float pointSize) const {
 		WireGeometryPoint points[1];
 		points[0].x = point.x;
 		points[0].y = point.y;
@@ -118,7 +116,7 @@ namespace r2d {
 		m_d3dDevice->DrawPrimitiveUP(D3DPT_POINTLIST, 1, static_cast<void*>(points), sizeof(WireGeometryPoint));
 	}
 
-	void D3DRenderContext::RenderLine(vec2 point1, vec2 point2, ivec3 color) const {
+	void D3DRenderContext::RenderLine(const vec2& point1, const vec2& point2, const ivec3& color) const {
 		WireGeometryVertex points[3];
 		points[0].x = point1.x;
 		points[0].y = point1.y;
@@ -136,21 +134,21 @@ namespace r2d {
 		m_d3dDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, static_cast<void*>(points), sizeof(WireGeometryVertex));
 	}
 
-	void D3DRenderContext::RenderWireRectangle(Rect geometry, ivec3 color) const {
+	void D3DRenderContext::RenderWireRectangle(const Rect& geometry, const ivec3& color) const {
 		RenderLine(geometry.LeftBottomCorner(), geometry.RightBottomCorner(), color);
 		RenderLine(geometry.RightBottomCorner(), geometry.RightTopCorner(), color);
 		RenderLine(geometry.RightTopCorner(), geometry.LeftTopCorner(), color);
 		RenderLine(geometry.LeftTopCorner(), geometry.LeftBottomCorner(), color);
 	}
 
-	void D3DRenderContext::RenderSolidRectangle(Rect geometry, ivec3 color) const {
+	void D3DRenderContext::RenderSolidRectangle(const Rect& geometry, const ivec3& color) const {
 		RenderLine(geometry.LeftBottomCorner(), geometry.RightBottomCorner(), color);
 		RenderLine(geometry.RightBottomCorner(), geometry.RightTopCorner(), color);
 		RenderLine(geometry.RightTopCorner(), geometry.LeftTopCorner(), color);
 		RenderLine(geometry.LeftTopCorner(), geometry.LeftBottomCorner(), color);
 	}
 
-	void D3DRenderContext::RenderWireCircle(const Circle& c, ivec3 color) const {
+	void D3DRenderContext::RenderWireCircle(const Circle& c, const ivec3& color) const {
 		WireGeometryVertex points[CIRCLE_SECTORS_COUNT + 1];
 		float pi2 = 2.0f * M_PI;
 		float sectorSize = pi2 / CIRCLE_SECTORS_COUNT;
@@ -171,7 +169,7 @@ namespace r2d {
 		m_d3dDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, CIRCLE_SECTORS_COUNT, static_cast<void*>(points), sizeof(WireGeometryVertex));
 	}
 
-	void D3DRenderContext::RenderSolidCircle(const Circle& c, ivec3 color) const {
+	void D3DRenderContext::RenderSolidCircle(const Circle& c, const ivec3& color) const {
 		WireGeometryVertex points[CIRCLE_SECTORS_COUNT + 1];
 		float pi2 = 2.0f * M_PI;
 		float sectorSize = pi2 / CIRCLE_SECTORS_COUNT;
@@ -192,7 +190,7 @@ namespace r2d {
 		m_d3dDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, CIRCLE_SECTORS_COUNT, static_cast<void*>(points), sizeof(WireGeometryVertex));
 	}
 
-	void D3DRenderContext::RenderWirePolygon(const Polygon2d& p, ivec3 color) const {
+	void D3DRenderContext::RenderWirePolygon(const Polygon2d& p, const ivec3& color) const {
 		WireGeometryVertex* points = new WireGeometryVertex[p.VerteciesCount() + 1];
 		for (uint i = 0; i <= p.VerteciesCount(); ++i) {
 			if (i == p.VerteciesCount()) {
@@ -214,7 +212,7 @@ namespace r2d {
 		delete[] points;
 	}
 
-	void D3DRenderContext::RenderSolidPolygon(const Polygon2d& p, ivec3 color) const {
+	void D3DRenderContext::RenderSolidPolygon(const Polygon2d& p, const ivec3& color) const {
 		WireGeometryVertex* points = new WireGeometryVertex[p.VerteciesCount() + 1];
 		for (uint i = 0; i <= p.VerteciesCount(); ++i) {
 			if (i == p.VerteciesCount()) {
@@ -236,21 +234,21 @@ namespace r2d {
 		delete[] points;
 	}
 
-	void D3DRenderContext::RenderWorldAxises(const vec2& position, float angle) const {
+	void D3DRenderContext::RenderWorldAxises() const {
 		RenderLine(vec2(0.0f, 0.0f), vec2(AXIS_LENGTH, 0.0f), ivec3(0xFF, 0, 0));
 		RenderLine(vec2(0.0f, 0.0f), vec2(0.0f, AXIS_LENGTH), ivec3(0, 0, 0xFF));
 	}
 
 	// Preloaded primitives render routines
 
-	void D3DRenderContext::AddToRenderingQueue(const IRenderable* pRenderableObject) {
-		const IMaterial* pMaterial = pRenderableObject->GetMaterial();
-		if (pRenderableObject->HasAlpha()) {
-			m_alphaObjectsQueue[pRenderableObject->GetZ()][pMaterial->GetMaterialId()].push_back(pRenderableObject);
+	void D3DRenderContext::AddToRenderingQueue(const IRenderable* renderableObjectPtr) {
+		IMaterial* materialPtr = renderableObjectPtr->GetMaterial();
+		if (renderableObjectPtr->HasAlpha()) {
+			m_alphaObjectsQueue[renderableObjectPtr->GetZ()][materialPtr->GetMaterialId()].push_back(renderableObjectPtr);
 		} else {
-			m_solidObjectsQueue[pMaterial->GetMaterialId()].push_back(pRenderableObject);
+			m_solidObjectsQueue[materialPtr->GetMaterialId()].push_back(renderableObjectPtr);
 		}
-		m_materials[pMaterial->GetMaterialId()] = pMaterial;
+		m_materials[materialPtr->GetMaterialId()] = materialPtr;
 	}
 	
 	void D3DRenderContext::RenderQueuedObjects(bool isDebug) {
@@ -269,11 +267,9 @@ namespace r2d {
 
 	// Factory
 
-	IFactory* D3DRenderContext::GetFactory() {
-		return new D3DFactory(*this);
+	std::auto_ptr<IFactory> D3DRenderContext::GetFactory() {
+		return std::auto_ptr<IFactory>(new D3DFactory(*this));
 	}
-
-	// D3DRenderContext private
 	
 	bool D3DRenderContext::InitD3D() {
 		D3DPRESENT_PARAMETERS d3dpp;
@@ -306,13 +302,13 @@ namespace r2d {
 
 	void D3DRenderContext::Render(D3DMaterial* material, RenderQueue& renderableObjects) {
 		for (RenderQueue::const_iterator i = renderableObjects.begin(); i != renderableObjects.end(); ++i) {
-			uint passesCount = material->BeginPasses(*this, "RenderScene");
+			uint passesCount = material->BeginPasses("RenderScene");
 			for (uint passNo = 0; passNo < passesCount; ++passNo) {
-				(*i)->ApplyTransformations(*this);
-				material->SetMatrices(*this);
+				(*i)->ApplyTransformations();
+				material->SetMatrices();
 				material->BeginPass(passNo);
-				(*i)->Render(*this);
-				(*i)->IdentityTransformation(*this);
+				(*i)->Render();
+				(*i)->IdentityTransformation();
 				material->EndPass();
 			}
 			material->EndPasses();

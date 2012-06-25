@@ -13,7 +13,7 @@ using namespace std;
 CglTypes::Type TypesParser::GetType(const string_t& str) {
 	size_t pos = str.find('(');
 	if (pos == string_t::npos || pos == 0) {
-		return CglTypes::ctInvalid;
+		return CglTypes::ctString;
 	}
 	
 	static bool isTypeMapSet = false;
@@ -37,6 +37,10 @@ CglTypes::Type TypesParser::GetType(const string_t& str) {
 		return CglTypes::ctUnknown;
 	}
 	return typeMap[typeName];
+}
+
+const string_t& TypesParser::ParseString(const string_t& str) {
+	return str;
 }
 
 bool TypesParser::ParseBool(const string_t& str) {

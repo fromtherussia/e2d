@@ -1,24 +1,23 @@
-#include "IRenderContext.h"
+#include "r2d/IRenderContext.h"
 
-#include "D3DCommon.h"
-#include "D3DRenderContext.h"
-#include "D3DFont.h"
+#include "r2d/D3D/D3DCommon.h"
+#include "r2d/D3D/D3DRenderContext.h"
+#include "r2d/D3D/D3DFont.h"
 
 namespace r2d {
-	
 	D3DFont::D3DFont(D3DRenderContext& context, const FontAttributes& fontAttributes) {
 		HRESULT result = D3DXCreateFontA(
 			context.GetDevice(),
-			fontAttributes.height,
-			fontAttributes.width,
-			fontAttributes.weight,
+			fontAttributes.m_height,
+			fontAttributes.m_width,
+			fontAttributes.m_weight,
 			1,
-			fontAttributes.isItalic,
-			fontAttributes.charset,
-			fontAttributes.precision,
-			fontAttributes.quality,
-			fontAttributes.familyIndex,
-			fontAttributes.fontFace.c_str(),
+			fontAttributes.m_isItalic,
+			fontAttributes.m_charset,
+			fontAttributes.m_precision,
+			fontAttributes.m_quality,
+			fontAttributes.m_familyIndex,
+			fontAttributes.m_fontFace.c_str(),
 			&m_font
 		);
 		if (result != S_OK) {
@@ -27,7 +26,6 @@ namespace r2d {
 	}
 
 	D3DFont::~D3DFont() {
-
 	}
 
 	vec2 D3DFont::GetSize(const string_t& text) {
@@ -36,10 +34,11 @@ namespace r2d {
 		return vec2(dimensions.cx, dimensions.cy);
 	}
 
-	void D3DFont::Render(D3DRenderContext& context, const Rect& cameraRect, const string_t& text, vec2 pos, ivec3 color, VerticalAlign::Align verticalAlign, HorisontalAlign::Align horisontalAlign, vec2 padding) {
+	void D3DFont::Render(D3DRenderContext& context, const Rect& cameraRect, const string_t& text, const vec2& pos, const ivec3& color, VerticalAlign::Align verticalAlign, HorisontalAlign::Align horisontalAlign, const vec2& padding) {
 		vec2 textSize = GetSize(text);
 		float x = pos.x;
 		float y = pos.y;
+		
 		switch(verticalAlign) {
 			case VerticalAlign::Left:
 				x += padding.x;
@@ -51,6 +50,7 @@ namespace r2d {
 				x -= textSize.x + padding.x;
 				break;
 		}
+		
 		switch(horisontalAlign) {
 			case HorisontalAlign::Bottom:
 				y += padding.y;
@@ -65,6 +65,7 @@ namespace r2d {
 		vec2 cameraCenter = cameraRect.Center();
 		x = x - cameraCenter.x + cameraRect.Width() * 0.5f;
 		y = cameraRect.Height() * 0.5 - y + cameraCenter.y;
+		
 		RECT textRect;
 		SetRect(&textRect, x, y + textSize.y, x + textSize.x, y);
 		m_font->DrawTextA(
@@ -77,7 +78,7 @@ namespace r2d {
 		);
 	}
 
-	void D3DFont::RenderContrast(D3DRenderContext& context, const Rect& cameraRect, const string_t& text, vec2 pos, ivec3 color1, ivec3 color2, VerticalAlign::Align verticalAlign, HorisontalAlign::Align horisontalAlign, vec2 padding) {
+	void D3DFont::RenderContrast(D3DRenderContext& context, const Rect& cameraRect, const string_t& text, const vec2& pos, const ivec3& color1, const ivec3& color2, VerticalAlign::Align verticalAlign, HorisontalAlign::Align horisontalAlign, const vec2& padding) {
 		Render(context, cameraRect, text, pos + vec2(1.0f, -1.0f), color2, verticalAlign, horisontalAlign, padding);
 		Render(context, cameraRect, text, pos, color1, verticalAlign, horisontalAlign, padding);
 	}

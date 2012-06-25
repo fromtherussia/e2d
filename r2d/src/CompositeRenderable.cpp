@@ -1,44 +1,50 @@
-#include "IRenderable.h"
-#include "IRenderContext.h"
+#include "r2d/IRenderable.h"
+#include "r2d/IRenderContext.h"
 
-#include "CompositeRenderable.h"
+#include "r2d/CompositeRenderable.h"
 
 namespace r2d {
-	CompositeRenderable::CompositeRenderable() {
+	CompositeRenderable::CompositeRenderable(IRenderContext& renderContext, IMaterial* materialPtr):
+		m_renderContext(renderContext),
+		IRenderable(materialPtr) {
 	}
 
 	CompositeRenderable::~CompositeRenderable() {
-
 	}
 
-	CompositeRenderable& CompositeRenderable::AddRenderable(IRenderable* renderable, vec2 offset) {
-		m_renderableObjects.push_back(IRenderablePtr(renderable));
-		renderable->SetPosition(offset);
+	CompositeRenderable& CompositeRenderable::AddRenderable(std::auto_ptr<IRenderable> renderablePtr, vec2 offset) {
+		IRenderable* tmpRenderablePtr = renderablePtr.release();
+		renderablePtr->SetPosition(offset);
+		m_renderableObjects.push_back(tmpRenderablePtr);
 		m_renderableObjectsOffsets.push_back(offset);
 		return *this;
 	}
 
-	IRenderable& CompositeRenderable::operator [](uint index) {
+	IRenderable& CompositeRenderable::operator [] (uint index) {
 		if (index >= m_renderableObjects.size()) {
 			throw std::logic_error("index is out of range");
 		}
-		return *m_renderableObjects[index];
+		return m_renderableObjects[index];
+	}
+
+	void CompositeRenderable::RemoveRenderables() {
+		m_renderableObjects.clear();
 	}
 	
 	void CompositeRenderable::SetTransformations(const vec2& position, float angle) {
 		m_position = position;
 		m_angle = angle;
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			m_renderableObjects[i]->SetRotationOrigin(m_position);
-			m_renderableObjects[i]->SetTransformations(position + m_renderableObjectsOffsets[i], angle);
+			m_renderableObjects[i].SetRotationOrigin(m_position);
+			m_renderableObjects[i].SetTransformations(position + m_renderableObjectsOffsets[i], angle);
 		}
 	}
 
 	void CompositeRenderable::SetPosition(const vec2& position) {
 		m_position = position;
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			m_renderableObjects[i]->SetRotationOrigin(m_position);
-			m_renderableObjects[i]->SetPosition(position + m_renderableObjectsOffsets[i]);
+			m_renderableObjects[i].SetRotationOrigin(m_position);
+			m_renderableObjects[i].SetPosition(position + m_renderableObjectsOffsets[i]);
 		}
 	}
 
@@ -49,8 +55,8 @@ namespace r2d {
 	void CompositeRenderable::SetRotation(float angle) {
 		m_angle = angle;
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			m_renderableObjects[i]->SetRotationOrigin(m_position);
-			m_renderableObjects[i]->SetRotation(angle);
+			m_renderableObjects[i].SetRotationOrigin(m_position);
+			m_renderableObjects[i].SetRotation(angle);
 		}
 	}
 
@@ -62,23 +68,27 @@ namespace r2d {
 		m_angle = 0.0f;
 		m_position = vec2();
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			m_renderableObjects[i]->ResetTransformations();
+			m_renderableObjects[i].ResetTransformations();
 		}
 	}
 	
 	Rect CompositeRenderable::GetBoundingRect() const {
 		return Rect();
 	}
-	
-	void CompositeRenderable::Render(IRenderContext& context) const {
+
+	void CompositeRenderable::AddToRenderQueue() const {
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			context.AddToRenderingQueue(m_renderableObjects[i].get());
+			m_renderableObjects[i].AddToRenderQueue();
 		}
 	}
+	
+	void CompositeRenderable::Render() const {
+		return;
+	}
 
-	void CompositeRenderable::RenderWire(IRenderContext& context) const {
+	void CompositeRenderable::RenderWire() const {
 		for (size_t i = 0; i < m_renderableObjects.size(); ++i) {
-			m_renderableObjects[i]->RenderWire(context);
+			m_renderableObjects[i].RenderWire();
 		}
 	}
 }

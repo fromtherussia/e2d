@@ -1,16 +1,16 @@
-#include "IRenderContext.h"
+#include "r2d/IRenderContext.h"
 
-#include "D3DCommon.h"
-#include "D3DRenderContext.h"
-#include "D3DTexture.h"
+#include "r2d/D3D/D3DCommon.h"
+#include "r2d/D3D/D3DRenderContext.h"
+#include "r2d/D3D/D3DTexture.h"
 
 namespace r2d {
-	D3DTexture::D3DTexture(D3DRenderContext& context, D3DFORMAT format, uint width, uint height, uint mipmapLevels, DWORD usage) {
+	D3DTexture::D3DTexture(D3DRenderContext& renderContext, D3DFORMAT format, uint width, uint height, uint mipmapLevels, DWORD usage) {
 		if (mipmapLevels > 0) {
 			usage = usage | D3DUSAGE_AUTOGENMIPMAP;
 		}
 
-		HRESULT creationResult = context.GetDevice()->CreateTexture(
+		HRESULT creationResult = renderContext.GetDevice()->CreateTexture(
 			width,
 			height,
 			mipmapLevels,
@@ -21,15 +21,11 @@ namespace r2d {
 			NULL
 		);
 
-		if (creationResult != D3D_OK) {
-			throw std::logic_error("can't create texture");
-		}
+		CGL_CHECK(creationResult == D3D_OK);
 	}
 
-	D3DTexture::D3DTexture(D3DRenderContext& context, const string_t& path) {
-		if (D3DXCreateTextureFromFileA(context.GetDevice(), path.c_str(), &m_texture) != D3D_OK) {
-			throw std::logic_error("can't create texture");
-		}
+	D3DTexture::D3DTexture(D3DRenderContext& renderContext, const string_t& path) {
+		CGL_CHECK(D3DXCreateTextureFromFileA(renderContext.GetDevice(), path.c_str(), &m_texture) == D3D_OK);
 	}
 
 	D3DTexture::~D3DTexture() {

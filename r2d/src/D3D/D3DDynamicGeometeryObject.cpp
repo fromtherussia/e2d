@@ -1,28 +1,36 @@
-#include <assert.h>
+#include <cgl/ITimer.h>
+#include <cgl/FrameCounter.h>
 
-#include "ITexture.h"
-#include "IMaterial.h"
-#include "IRenderContext.h"
+#include "r2d/ITexture.h"
+#include "r2d/IMaterial.h"
+#include "r2d/IRenderContext.h"
 
-#include "D3DCommon.h"
-#include "D3DGeometryDefinitions.h"
-#include "D3DRenderContext.h"
-#include "D3DTexture.h"
-#include "D3DEffect.h"
-#include "D3DMaterial.h"
-#include "D3DDynamicGeometeryObject.h"
+#include "r2d/D3D/D3DCommon.h"
+#include "r2d/D3D/D3DGeometryDefinitions.h"
+#include "r2d/D3D/D3DRenderContext.h"
+#include "r2d/D3D/D3DTexture.h"
+#include "r2d/D3D/D3DEffect.h"
+#include "r2d/D3D/D3DMaterial.h"
+#include "r2d/D3D/D3DDynamicGeometeryObject.h"
 
 namespace r2d {
-	// Public
-
-	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(IMaterialPtr pMaterial, D3DRenderContext& context, const Polygon2d& geometry, const Rect& uv, int z):
-		IDynamicGeometeryObject(pMaterial),
-		m_vertexBuffer(NULL) {
+	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(D3DRenderContext& renderContext, IMaterial* materialPtr, const Polygon2d& geometry, const Rect& uv, int z, const AnimationProperties& animationProperties):
+		IDynamicGeometeryObject(materialPtr),
+		m_renderContext(renderContext),
+		m_vertexBuffer(NULL),
+		m_isAnimated(animationProperties.m_useAnimation),
+		m_animationProperties(animationProperties),
+		m_frameCounter(animationProperties.GetCycleTime(), 0, animationProperties.m_framesCount, true) {
 		ResetTransformations();
-		SetPolygon(context, geometry, uv, z, geometry.GetBoundingRect());
+		//Rect uvFixed(uv.x1, 1.0f - uv.y2, uv.x2, 1.0f - uv.y1);
+		SetPolygon(geometry, uv, z, geometry.GetBoundingRect());
+		if (m_isAnimated) {
+			m_frameCounter.Start();
+		}
 	}
 
-	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(IMaterialPtr pMaterial, D3DRenderContext& context, const Polygon2d& geometry, const vec2& tileMetrics, int z):
+	/*
+	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(IMaterialPtr pMaterial, const D3DRenderContext& renderContext, const Polygon2d& geometry, const vec2& tileMetrics, int z):
 		IDynamicGeometeryObject(pMaterial),
 		m_vertexBuffer(NULL) {
 		assert(tileMetrics.x > 0.0f);
@@ -30,8 +38,8 @@ namespace r2d {
 		
 		ResetTransformations();
 		Rect boundingRect = geometry.GetBoundingRect();
-		SetPolygon(context, geometry, Rect(0.0f, 0.0f, boundingRect.Width() / tileMetrics.x, boundingRect.Height() / tileMetrics.y), z, geometry.GetBoundingRect());
-	}
+		SetPolygon(renderContext, geometry, Rect(0.0f, 0.0f, boundingRect.Width() / tileMetrics.x, boundingRect.Height() / tileMetrics.y), z, geometry.GetBoundingRect());
+	}*/
 
 	D3DDynamicGeometeryObject::~D3DDynamicGeometeryObject() {
 		ReleaseBuffer();
@@ -39,16 +47,14 @@ namespace r2d {
 
 	// Transformations
 	
-	void D3DDynamicGeometeryObject::ApplyTransformations(IRenderContext& context) const {
-		D3DRenderContext& d3dContext = (D3DRenderContext&)context;
-		LPDIRECT3DDEVICE9& d3dDevice = d3dContext.GetDevice();
+	void D3DDynamicGeometeryObject::ApplyTransformations() const {
+		LPDIRECT3DDEVICE9 d3dDevice = m_renderContext.GetDevice();
 
 		d3dDevice->SetTransform(D3DTS_WORLD, &m_transform);
 	}
 
-	void D3DDynamicGeometeryObject::IdentityTransformation(IRenderContext& context) const {
-		D3DRenderContext& d3dContext = (D3DRenderContext&)context;
-		LPDIRECT3DDEVICE9& d3dDevice = d3dContext.GetDevice();
+	void D3DDynamicGeometeryObject::IdentityTransformation() const {
+		LPDIRECT3DDEVICE9 d3dDevice = m_renderContext.GetDevice();
 		
 		D3DXMATRIXA16 transformaton;
 		D3DXMatrixIdentity(&transformaton);
@@ -138,15 +144,19 @@ namespace r2d {
 		return m_z;
 	}
 
-	void D3DDynamicGeometeryObject::SynchronizeWithGpu(IRenderContext& context) {
-		SetPolygon((D3DRenderContext&)context, m_polygon, m_uv, m_z, m_polygon.GetBoundingRect());
+	void D3DDynamicGeometeryObject::SynchronizeWithGpu() {
+		SetPolygon(m_polygon, m_uv, m_z, m_polygon.GetBoundingRect());
 	}
 
 	// Rendering
 
-	void D3DDynamicGeometeryObject::Render(IRenderContext& context) const {
-		D3DRenderContext& d3dContext = (D3DRenderContext&)context;
-		LPDIRECT3DDEVICE9& d3dDevice = d3dContext.GetDevice();
+	void D3DDynamicGeometeryObject::Render() const {
+		if (m_isAnimated && m_frameCounter.IsActive()) {
+			const_cast<FrameCounter&>(m_frameCounter).Update();
+			GetMaterial()->SetFloatParam("uOffset", m_frameCounter.GetCount() * m_animationProperties.m_step);
+		}
+
+		LPDIRECT3DDEVICE9 d3dDevice = m_renderContext.GetDevice();
 
 		d3dDevice->SetTransform(D3DTS_WORLD, &m_transform);
 		d3dDevice->SetStreamSource(0, m_vertexBuffer, 0, sizeof(StaticGeometryVertex));
@@ -154,15 +164,19 @@ namespace r2d {
 		d3dDevice->DrawPrimitive(D3DPT_TRIANGLEFAN, 0, GetElemsInBufferCount() - 2);
 	}
 
-	void D3DDynamicGeometeryObject::RenderWire(IRenderContext& context) const {
-		context.RenderWirePolygon(m_polygon);
+	void D3DDynamicGeometeryObject::RenderWire() const {
+		m_renderContext.RenderWirePolygon(m_polygon);
+	}
+
+	void D3DDynamicGeometeryObject::AddToRenderQueue() const {
+		m_renderContext.AddToRenderingQueue(this);
 	}
 
 	// Private
 
-	size_t D3DDynamicGeometeryObject::AllocateBuffer(D3DRenderContext& context, size_t elems) {
+	size_t D3DDynamicGeometeryObject::AllocateBuffer(size_t elems) {
 		ReleaseBuffer();
-		LPDIRECT3DDEVICE9& d3dDevice = context.GetDevice();
+		LPDIRECT3DDEVICE9 d3dDevice = m_renderContext.GetDevice();
 		size_t requiredMemory = elems * sizeof(StaticGeometryVertex);
 		if (FAILED(d3dDevice->CreateVertexBuffer(requiredMemory, 0, D3DFVF_STATIC_GEOMETRY_VERTEX, D3DPOOL_DEFAULT, &m_vertexBuffer, NULL))) {
 			throw std::runtime_error("can't create D3D buffer");
@@ -180,11 +194,11 @@ namespace r2d {
 		}
 	}
 
-	void D3DDynamicGeometeryObject::SetPolygon(D3DRenderContext& context, const Polygon2d& geometry, const Rect& uv, int z, const Rect& boundingRect) {
-		size_t requiredMemory = AllocateBuffer(context, geometry.VerteciesCount());
+	void D3DDynamicGeometeryObject::SetPolygon(const Polygon2d& geometry, const Rect& uv, int z, const Rect& boundingRect) {
+		size_t requiredMemory = AllocateBuffer(geometry.VerteciesCount());
 
-		assert(boundingRect.Width() != 0.0f && boundingRect.Height() != 0.0f);
-		assert(geometry.GetCenter() == vec2());
+		CGL_CHECK(boundingRect.Width() != 0.0f && boundingRect.Height() != 0.0f);
+		// CGL_CHECK(geometry.GetCenter() == vec2()); // FIXME
 
 		float uRange = uv.Width();
 		float vRange = uv.Height();
@@ -197,7 +211,7 @@ namespace r2d {
 			vertices[i].z = z;
 			vertices[i].color = 0xFFFFFFFF;
 			vertices[i].u = uv.x1 + (geometry[i].x - boundingRect.x1) / boundingRect.Width() * uRange;
-			vertices[i].v = uv.y1 + (geometry[i].y - boundingRect.y1) / boundingRect.Height() * vRange;
+			vertices[i].v = 1.0f - (uv.y1 + (geometry[i].y - boundingRect.y1) / boundingRect.Height() * vRange);
 		}
 		m_vertexBuffer->Unlock();
 		m_polygon = geometry;
@@ -207,5 +221,25 @@ namespace r2d {
 
 	size_t D3DDynamicGeometeryObject::GetElemsInBufferCount() const {
 		return m_elemsInBuffer;
+	}
+
+	void D3DDynamicGeometeryObject::StartAnimation() {
+		m_frameCounter.Start();
+	}
+
+	void D3DDynamicGeometeryObject::StopAnimation() {
+		m_frameCounter.Stop();
+	}
+
+	void D3DDynamicGeometeryObject::PauseAnimation() {
+		m_frameCounter.Pause();
+	}
+
+	void D3DDynamicGeometeryObject::UnpauseAnimation() {
+		m_frameCounter.Unpause();
+	}
+
+	bool D3DDynamicGeometeryObject::IsAnimationRunning() const {
+		return m_frameCounter.IsActive();
 	}
 }

@@ -18,8 +18,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../Build/$(ConfigurationName)"
+			IntermediateDirectory="../Build/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../cgl/include;../r2d/include;include/air2d/graphics;include/air2d/physics;include/air2d/engine"
+				AdditionalIncludeDirectories="../cgl/include;../r2d/include;../p2d/include;include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -81,8 +81,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="../Build/$(ConfigurationName)"
+			IntermediateDirectory="../Build/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -153,84 +153,88 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<Filter
-				Name="Physics"
-				>
-				<File
-					RelativePath=".\src\Physics\PhysicsMaterialTable.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Physics\PhysicsPrimitive.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Physics\PhysicsUtils.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Physics\PhysicsWorld.cpp"
-					>
-				</File>
-				<Filter
-					Name="Shapes"
-					>
-					<File
-						RelativePath=".\src\Physics\PhysicsCircleShape.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\Physics\PhysicsIShape.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\Physics\PhysicsPolygonShape.cpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Joints"
-					>
-					<File
-						RelativePath=".\src\Physics\PhysicsIJoint.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\src\Physics\PhysicsLengthJoint.cpp"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
 				Name="Engine"
 				>
 				<File
-					RelativePath=".\src\Engine\EngineCompositeEntity.cpp"
+					RelativePath=".\src\Engine\Scene.cpp"
 					>
 				</File>
-				<File
-					RelativePath=".\src\Engine\EngineEntity.cpp"
+				<Filter
+					Name="Resource"
 					>
-				</File>
-				<File
-					RelativePath=".\src\Engine\EngineEntityJoint.cpp"
+					<File
+						RelativePath=".\Engine\GraphicMaterialTable.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\Engine\PhysicMaterialTable.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Interface"
 					>
-				</File>
-				<File
-					RelativePath=".\src\Engine\EngineIEntity.cpp"
+					<File
+						RelativePath=".\src\Engine\IEntity.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Entities"
 					>
-				</File>
-				<File
-					RelativePath=".\src\Engine\EngineScene.cpp"
-					>
-				</File>
+					<File
+						RelativePath=".\src\Engine\AbstractEntity.cpp"
+						>
+					</File>
+					<Filter
+						Name="PolygonDestructors"
+						>
+						<File
+							RelativePath=".\src\Engine\SimplePolygonDestructor.cpp"
+							>
+						</File>
+					</Filter>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="DataLoaders"
 				>
 				<File
-					RelativePath=".\include\air2d\DataLoaders\ResourceXmlLoader.cpp"
+					RelativePath=".\src\DataLoaders\ResourceLoader.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\DataLoaders\Utils.cpp"
+					>
+				</File>
+				<Filter
+					Name="EntitiesLoaders"
+					>
+					<File
+						RelativePath=".\src\DataLoaders\AbstractEntityLoader.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="PhysicsLoaders"
+					>
+					<File
+						RelativePath=".\src\DataLoaders\CircleShapeLoader.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\src\DataLoaders\PolygonShapeLoader.cpp"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="GraphicsLoaders"
+					>
+					<File
+						RelativePath=".\src\DataLoaders\DynamicGeometryObjectLoader.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 		<Filter
@@ -239,104 +243,136 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<Filter
-				Name="Physics"
-				>
-				<File
-					RelativePath=".\include\air2d\physics\PhysicsCommon.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\physics\PhysicsMaterialTable.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\physics\PhysicsPrimitive.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Physics\PhysicsUtils.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\physics\PhysicsWorld.h"
-					>
-				</File>
-				<Filter
-					Name="Shapes"
-					>
-					<File
-						RelativePath=".\include\air2d\physics\PhysicsCircleShape.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\air2d\physics\PhysicsIShape.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\air2d\physics\PhysicsPolygonShape.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Joints"
-					>
-					<File
-						RelativePath=".\include\air2d\physics\PhysicsIJoint.h"
-						>
-					</File>
-					<File
-						RelativePath=".\include\air2d\physics\PhysicsLengthJoint.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
-			<Filter
 				Name="Engine"
 				>
 				<File
-					RelativePath=".\include\air2d\engine\EngineCommon.h"
+					RelativePath=".\include\e2d\Engine\Common.h"
 					>
 				</File>
-				<File
-					RelativePath=".\include\air2d\engine\EngineCompositeEntity.h"
+				<Filter
+					Name="Resource"
 					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\engine\EngineEntity.h"
+					<File
+						RelativePath=".\include\e2d\Engine\GraphicMaterialTable.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\Engine\IEntityFactory.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\Engine\IResourceController.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\Engine\PhysicMaterialTable.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Scene"
 					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\engine\EngineEntityJoint.h"
+					<File
+						RelativePath=".\include\e2d\Engine\Scene.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Entities"
 					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\engine\EngineIEntity.h"
+					<File
+						RelativePath=".\include\e2d\Engine\AbstractEntity.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\Engine\IEntity.h"
+						>
+					</File>
+					<Filter
+						Name="PolygonDestructors"
+						>
+						<File
+							RelativePath=".\include\e2d\Engine\IPolygonDestructor.h"
+							>
+						</File>
+						<File
+							RelativePath=".\include\e2d\Engine\SimplePolygonDestructor.h"
+							>
+						</File>
+					</Filter>
+				</Filter>
+				<Filter
+					Name="_Apendix"
 					>
-				</File>
-				<File
-					RelativePath=".\include\air2d\engine\EngineScene.h"
-					>
-				</File>
+					<File
+						RelativePath=".\include\e2d\Engine\DestructibleEntity.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="DataLoaders"
 				>
 				<File
-					RelativePath=".\include\air2d\DataLoaders\DataLoadersCommon.h"
+					RelativePath=".\include\e2d\DataLoaders\Common.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\air2d\DataLoaders\DynamicGeometryObjectXmlLoader.h"
+					RelativePath=".\include\e2d\DataLoaders\DataLoadersConsts.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\air2d\DataLoaders\PolygonShapeLoader.h"
+					RelativePath=".\include\e2d\DataLoaders\ResourceLoader.h"
 					>
 				</File>
 				<File
-					RelativePath=".\include\air2d\DataLoaders\ResourceXmlLoader.h"
+					RelativePath=".\include\e2d\DataLoaders\SceneLoader.h"
 					>
 				</File>
+				<File
+					RelativePath=".\include\e2d\DataLoaders\Utils.h"
+					>
+				</File>
+				<Filter
+					Name="PhysicsLoaders"
+					>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\CircleShapeLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\IPhysicShapeLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\PolygonShapeLoader.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="GraphicsLoaders"
+					>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\DynamicGeometryObjectLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\IGraphicShapeLoader.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="EntitiesLoaders"
+					>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\AbstractEntityLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\include\e2d\DataLoaders\IEntityLoader.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 		</Filter>
 	</Files>

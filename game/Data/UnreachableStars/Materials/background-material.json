@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(10)",
+		"name": "background",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/UnreachableStars/background.jpg"
+			}
+		},
+		"effect": {
+			"src": "Data/Shader.fx"
+		}
+	}
+}

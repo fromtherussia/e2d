@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3C033D09-7A5B-4473-83BB-EEEF7674B54F}</ProjectGuid>
+    <RootNamespace>r2d</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../Build/$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../Build/$(ProjectName)/$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../Build/$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../Build/$(ProjectName)/$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(BOOST_INCLUDE_DIR);$(DIRECTX_INCLUDE_DIR);$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(BOOST_INCLUDE_DIR);$(DIRECTX_INCLUDE_DIR);$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DIRECTX_LIBRARY_DIR);$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DIRECTX_LIBRARY_DIR);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>include;../cgl/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>d3d9.lib d3dx9d.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>d3d9.lib d3dx9.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CompositeRenderable.cpp" />
+    <ClCompile Include="src\ContextFactory.cpp" />
+    <ClCompile Include="src\IRenderable.cpp" />
+    <ClCompile Include="src\D3D\D3DCamera.cpp" />
+    <ClCompile Include="src\D3D\D3DDynamicGeometeryObject.cpp" />
+    <ClCompile Include="src\D3D\D3DEffect.cpp" />
+    <ClCompile Include="src\D3D\D3DFactory.cpp" />
+    <ClCompile Include="src\D3D\D3DFont.cpp" />
+    <ClCompile Include="src\D3D\D3DMaterial.cpp" />
+    <ClCompile Include="src\D3D\D3DRenderContext.cpp" />
+    <ClCompile Include="src\D3D\D3DTexture.cpp" />
+    <ClCompile Include="src\D3D\D3DUtils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\r2d\Common.h" />
+    <ClInclude Include="include\r2d\CompositeRenderable.h" />
+    <ClInclude Include="include\r2d\ContextFactory.h" />
+    <ClInclude Include="include\r2d\ICamera.h" />
+    <ClInclude Include="include\r2d\IDynamicGeometeryObject.h" />
+    <ClInclude Include="include\r2d\IEffect.h" />
+    <ClInclude Include="include\r2d\IFactory.h" />
+    <ClInclude Include="include\r2d\IFont.h" />
+    <ClInclude Include="include\r2d\IMaterial.h" />
+    <ClInclude Include="include\r2d\IRenderable.h" />
+    <ClInclude Include="include\r2d\IRenderContext.h" />
+    <ClInclude Include="include\r2d\ITexture.h" />
+    <ClInclude Include="include\r2d\D3D\D3DCamera.h" />
+    <ClInclude Include="include\r2d\D3D\D3DCommon.h" />
+    <ClInclude Include="include\r2d\D3D\D3DDynamicGeometeryObject.h" />
+    <ClInclude Include="include\r2d\D3D\D3DEffect.h" />
+    <ClInclude Include="include\r2d\D3D\D3DFactory.h" />
+    <ClInclude Include="include\r2d\D3D\D3DFont.h" />
+    <ClInclude Include="include\r2d\D3D\D3DGeometryDefinitions.h" />
+    <ClInclude Include="include\r2d\D3D\D3DMaterial.h" />
+    <ClInclude Include="include\r2d\D3D\D3DRenderContext.h" />
+    <ClInclude Include="include\r2d\D3D\D3DTexture.h" />
+    <ClInclude Include="include\r2d\D3D\D3DUtils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cgl\cgl.vcxproj">
+      <Project>{ff5cbdb1-da95-4c47-b39d-70151b3d053c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

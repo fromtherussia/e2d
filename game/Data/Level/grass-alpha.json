@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(1)",
+		"name": "grass-alpha",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/Grass-alpha.jpg"
+			}
+		},
+		"effect": {
+			"src": "Data/Shader.fx"
+		}
+	}
+}

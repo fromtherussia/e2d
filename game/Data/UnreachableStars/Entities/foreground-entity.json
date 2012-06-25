@@ -1,0 +1,24 @@
+{
+	"entity": {
+		"type": "complex_physic_entity",
+		"physics_type": "dynamic",
+		"offset": "vec2(20.0f, 100.0f)",
+		"graphics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "foreground",
+					"depth": "int(1)",
+					"offset": "vec2(240.0f, -123.0f)",
+					"uv": "rect(0.0f, 0.0f, 1.0f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(0.0f, 0.0f)",
+						"vertex2": "vec2(1280.0f, 0.0f)",
+						"vertex3": "vec2(1280.0f, 191.0f)",
+						"vertex4": "vec2(0.0f, 191.0f)"
+					}
+				}
+			}
+		}
+	}
+}

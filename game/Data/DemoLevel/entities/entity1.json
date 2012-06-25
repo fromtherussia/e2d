@@ -1,0 +1,40 @@
+{
+	"entity": {
+		"type": "complex_physic_entity",
+		"physics_type": "dynamic",
+		"offset": "vec2(-250.0f, 100.0f)",
+		"graphics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "dummy",
+					"depth": "int(1)",
+					"offset": "vec2(0.0, 0.0f)",
+					"uv": "rect(0.0f, 0.0f, 1.0f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(0.0f, 0.0f)",
+						"vertex2": "vec2(60.0f, 0.0f)",
+						"vertex3": "vec2(60.0f, 60.0f)",
+						"vertex4": "vec2(0.0f, 60.0f)"
+					}
+				}
+			}
+		},
+		"physics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "rock",
+					"world": "int(1)",
+					"offset": "vec2(0.0f, 0.0f)",
+					"vertices": {
+						"vertex1": "vec2(0.0f, 0.0f)",
+						"vertex2": "vec2(60.0f, 0.0f)",
+						"vertex3": "vec2(60.0f, 60.0f)",
+						"vertex4": "vec2(0.0f, 60.0f)"
+					}
+				}
+			}
+		}
+	}
+}

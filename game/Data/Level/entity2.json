@@ -1,0 +1,81 @@
+{
+	"entity": {
+		"type": "complex_physic_entity",
+		"physics_type": "static",
+		"offset": "vec2(0.0f, -90.0f)",
+		"graphics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "grass-alpha",
+					"depth": "int(2)",
+					"offset": "vec2(-100.0f, 40.0f)",
+					"uv": "rect(0.0f, 0.0f, 1.0f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(-300.0f, -100.0f)",
+						"vertex2": "vec2(-175.0f, -100.0f)",
+						"vertex3": "vec2(-175.0f, -15.0f)",
+						"vertex4": "vec2(-300.0f, -15.0f)"
+					}
+				},
+				"shape2": {
+					"type": "polygon_shape",
+					"material": "grass-alpha",
+					"depth": "int(2)",
+					"offset": "vec2(75.0f, 50.0f)",
+					"uv": "rect(0.0f, 0.0f, 1.0f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(-300.0f, -100.0f)",
+						"vertex2": "vec2(-175.0f, -100.0f)",
+						"vertex3": "vec2(-175.0f, -15.0f)",
+						"vertex4": "vec2(-300.0f, -15.0f)"
+					}
+				},
+				"shape3": {
+					"type": "polygon_shape",
+					"material": "grass-alpha",
+					"depth": "int(2)",
+					"offset": "vec2(250.0f, 70.0f)",
+					"uv": "rect(0.0f, 0.0f, 1.0f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(-300.0f, -100.0f)",
+						"vertex2": "vec2(-175.0f, -100.0f)",
+						"vertex3": "vec2(-175.0f, -15.0f)",
+						"vertex4": "vec2(-300.0f, -15.0f)"
+					}
+				},
+				"shape4": {
+					"type": "polygon_shape",
+					"material": "grass",
+					"depth": "int(1)",
+					"offset": "vec2(0.0f, 0.0f)",
+					"pixel_per_uv": "vec2(50.0f, 50.0f)",
+					"vertices": {
+						"vertex1": "vec2(-300.0f, -100.0f)",
+						"vertex2": "vec2(300.0f, -100.0f)",
+						"vertex3": "vec2(300.0f, 0.0f)",
+						"vertex4": "vec2(-100.0f, -20.0f)",
+						"vertex5": "vec2(-300.0f, -50.0f)"
+					}
+				}
+			}
+		},
+		"physics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "rock",
+					"world": "int(1)",
+					"offset": "vec2(0.0f, 0.0f)",
+					"vertices": {
+						"vertex1": "vec2(-300.0f, -100.0f)",
+						"vertex2": "vec2(300.0f, -100.0f)",
+						"vertex3": "vec2(300.0f, 0.0f)",
+						"vertex4": "vec2(-100.0f, -20.0f)",
+						"vertex5": "vec2(-300.0f, -50.0f)"
+					}
+				}
+			}
+		}
+	}
+}

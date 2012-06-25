@@ -1,14 +1,15 @@
-#include "IRenderable.h"
-#include "IMaterial.h"
+#include "r2d/IMaterial.h"
+
+#include "r2d/IRenderable.h"
 
 namespace r2d {
-	IRenderable::IRenderable(const IMaterialPtr& pMaterial):
-		m_pMaterial(pMaterial),
+	IRenderable::IRenderable(IMaterial* materialPtr):
+		m_materialPtr(materialPtr),
 		m_isRotationOriginSet(false) {
 	}
 
-	const IMaterial* IRenderable::GetMaterial() const {
-		return m_pMaterial.get();
+	int IRenderable::GetMaterialId() const {
+		return m_materialPtr->GetMaterialId();
 	}
 
 	void IRenderable::SetRotationOrigin(const vec2& rotationOrigin) {

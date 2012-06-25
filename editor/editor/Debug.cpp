@@ -2,7 +2,7 @@
 
 #include "src/VisualEditors/DebugRenderer.h"
 
-using namespace air2d::physics;
+using namespace e2d::p2d;
 
 r2d::D3DRenderContext context;
 r2d::D3DCamera camera(Rect(-320.0f, -240.0f, 320.0f, 240.0f));

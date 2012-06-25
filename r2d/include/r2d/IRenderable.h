@@ -1,7 +1,7 @@
 #ifndef R2D_IRENDERABLE_H
 #define R2D_IRENDERABLE_H
 
-#include "Common.h"
+#include "r2d/Common.h"
 
 namespace r2d {
 	/*
@@ -14,17 +14,13 @@ namespace r2d {
 
 		Все выводимые объекты перед выводом сортируются по материалу.
 	*/
-	class IRenderContext;
-	PREDECL_CLASS_WITH_PTR(IMaterial);
-	
 	class IRenderable {
 	public:
-		IRenderable(const IMaterialPtr& pMaterial);
+		IRenderable(IMaterial* materialPtr);
 		virtual ~IRenderable() {};
-		const IMaterial* GetMaterial() const;
 		// Transformations
-		virtual void ApplyTransformations(IRenderContext& context) const = 0;
-		virtual void IdentityTransformation(IRenderContext& context) const = 0;
+		virtual void ApplyTransformations() const = 0;
+		virtual void IdentityTransformation() const = 0;
 		virtual void SetTransformations(const vec2& position, float angle) = 0;
 		virtual void SetPosition(const vec2& position) = 0;
 		virtual vec2 GetPosition() const = 0;
@@ -38,19 +34,22 @@ namespace r2d {
 		// Sorting
 		virtual bool HasAlpha() const = 0;
 		virtual int GetZ() const = 0;
-		virtual int GetMaterialId() const = 0;
+		virtual int GetMaterialId() const;
+		IMaterial* GetMaterial() const {
+			return m_materialPtr;
+		}
 		// Rendering
-		virtual void Render(IRenderContext& context) const = 0;
-		virtual void RenderWire(IRenderContext& context) const = 0;
+		virtual void AddToRenderQueue() const = 0;
+		virtual void Render() const = 0;
+		virtual void RenderWire() const = 0;
 
 	protected:
 		vec2 m_rotationOrigin;
 		bool m_isRotationOriginSet;
 		
 	private:
-		IMaterialPtr m_pMaterial;
+		IMaterial* m_materialPtr;
 	};
-	DEFPTR(IRenderable);
 }
 
 #endif

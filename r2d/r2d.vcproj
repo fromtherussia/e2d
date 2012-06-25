@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="../Build/Build$(ConfigurationName)"
+			OutputDirectory="../Build/$(ConfigurationName)"
 			IntermediateDirectory="../Build/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../cgl/include;src/OGL;src/D3D;include/r2d;src"
+				AdditionalIncludeDirectories="include;../cgl/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,7 +61,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				AdditionalOptions="d3d9.lib d3dx9.lib"
+				AdditionalOptions="d3d9.lib d3dx9d.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -81,7 +81,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="../Build/Build$(ConfigurationName)"
+			OutputDirectory="../Build/$(ConfigurationName)"
 			IntermediateDirectory="../Build/$(ProjectName)/$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
@@ -148,72 +148,28 @@
 	</References>
 	<Files>
 		<Filter
-			Name="D3D"
+			Name="Source Files"
 			>
-			<File
-				RelativePath=".\src\CompositeRenderable.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\ContextFactory.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\src\IRenderable.cpp"
-				>
-			</File>
 			<Filter
-				Name="Header Files"
+				Name="Interface"
 				Filter="h;hpp;hxx;hm;inl;inc;xsd"
 				UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 				>
 				<File
-					RelativePath=".\src\D3D\D3DCamera.h"
+					RelativePath=".\src\CompositeRenderable.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\D3D\D3DCommon.h"
+					RelativePath=".\src\ContextFactory.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\src\D3D\D3DDynamicGeometeryObject.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DEffect.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DFactory.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DFont.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DGeometryDefinitions.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DMaterial.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DRenderContext.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DTexture.h"
-					>
-				</File>
-				<File
-					RelativePath=".\src\D3D\D3DUtils.h"
+					RelativePath=".\src\IRenderable.cpp"
 					>
 				</File>
 			</Filter>
 			<Filter
-				Name="Source Files"
+				Name="D3D"
 				Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 				UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 				>
@@ -254,62 +210,118 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="OpenGL"
+				>
+			</Filter>
 		</Filter>
 		<Filter
-			Name="Includes"
+			Name="Header Files"
 			>
-			<File
-				RelativePath=".\include\r2d\Common.h"
+			<Filter
+				Name="Interface"
 				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\CompositeRenderable.h"
+				<File
+					RelativePath=".\include\r2d\Common.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\CompositeRenderable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\ContextFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\ICamera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IDynamicGeometeryObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IEffect.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IFont.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IMaterial.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IRenderable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\IRenderContext.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\ITexture.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="D3D"
 				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\ContextFactory.h"
+				<File
+					RelativePath=".\include\r2d\D3D\D3DCamera.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DCommon.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DDynamicGeometeryObject.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DEffect.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DFactory.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DFont.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DGeometryDefinitions.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DMaterial.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DRenderContext.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DTexture.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\r2d\D3D\D3DUtils.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="OpenGL"
 				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\ICamera.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IDynamicGeometeryObject.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IEffect.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IFactory.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IFont.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IMaterial.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IRenderable.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\IRenderContext.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\r2d\ITexture.h"
-				>
-			</File>
-			<File
-				RelativePath=".\include\Shape.h"
-				>
-			</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

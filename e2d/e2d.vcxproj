@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E171A3DE-73C4-4D54-AF79-F54203C4DB77}</ProjectGuid>
+    <RootNamespace>e2d</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../Build/$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">../Build/$(ProjectName)/$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../Build/$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../Build/$(ProjectName)/$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(BOOST_INCLUDE_DIR);$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(BOOST_INCLUDE_DIR);$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>../cgl/include;../r2d/include;../p2d/include;include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>Box2D.lib %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <AdditionalOptions>Box2D.lib %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Engine\GraphicMaterialTable.cpp" />
+    <ClCompile Include="src\Engine\PhysicMaterialTable.cpp" />
+    <ClCompile Include="src\Engine\Scene.cpp" />
+    <ClCompile Include="src\Engine\IEntity.cpp" />
+    <ClCompile Include="src\Engine\AbstractEntity.cpp" />
+    <ClCompile Include="src\Engine\SimplePolygonDestructor.cpp" />
+    <ClCompile Include="src\DataLoaders\ResourceLoader.cpp" />
+    <ClCompile Include="src\DataLoaders\Utils.cpp" />
+    <ClCompile Include="src\DataLoaders\AbstractEntityLoader.cpp" />
+    <ClCompile Include="src\DataLoaders\CircleShapeLoader.cpp" />
+    <ClCompile Include="src\DataLoaders\PolygonShapeLoader.cpp" />
+    <ClCompile Include="src\DataLoaders\DynamicGeometryObjectLoader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\e2d\Engine\Common.h" />
+    <ClInclude Include="include\e2d\Engine\GraphicMaterialTable.h" />
+    <ClInclude Include="include\e2d\Engine\IEntityFactory.h" />
+    <ClInclude Include="include\e2d\Engine\IResourceController.h" />
+    <ClInclude Include="include\e2d\Engine\PhysicMaterialTable.h" />
+    <ClInclude Include="include\e2d\Engine\Scene.h" />
+    <ClInclude Include="include\e2d\Engine\AbstractEntity.h" />
+    <ClInclude Include="include\e2d\Engine\IEntity.h" />
+    <ClInclude Include="include\e2d\Engine\IPolygonDestructor.h" />
+    <ClInclude Include="include\e2d\Engine\SimplePolygonDestructor.h" />
+    <ClInclude Include="include\e2d\Engine\DestructibleEntity.h" />
+    <ClInclude Include="include\e2d\DataLoaders\Common.h" />
+    <ClInclude Include="include\e2d\DataLoaders\DataLoadersConsts.h" />
+    <ClInclude Include="include\e2d\DataLoaders\ResourceLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\SceneLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\Utils.h" />
+    <ClInclude Include="include\e2d\DataLoaders\CircleShapeLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\IPhysicShapeLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\PolygonShapeLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\DynamicGeometryObjectLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\IGraphicShapeLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\AbstractEntityLoader.h" />
+    <ClInclude Include="include\e2d\DataLoaders\IEntityLoader.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\p2d\p2d.vcxproj">
+      <Project>{5fbe4785-f219-45ed-864f-2e7580ab3d8a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\r2d\r2d.vcxproj">
+      <Project>{3c033d09-7a5b-4473-83bb-eeef7674b54f}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

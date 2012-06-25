@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(2)",
+		"name": "grass",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/Grass.jpg"
+			}
+		},
+		"effect": {
+			"src": "Data/Shader.fx"
+		}
+	}
+}

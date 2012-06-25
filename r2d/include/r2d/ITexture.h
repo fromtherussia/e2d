@@ -1,7 +1,7 @@
 #ifndef R2D_ITEXTURE_H
 #define R2D_ITEXTURE_H
 
-#include "Common.h"
+#include "r2d/Common.h"
 
 namespace r2d {
 	class ITexture {
@@ -9,8 +9,6 @@ namespace r2d {
 		ITexture() {};
 		virtual ~ITexture() {};
 	};
-	DEFPTR(ITexture);
-	typedef std::vector<ITexturePtr> ITexturePtrArray;
 }
 
 #endif

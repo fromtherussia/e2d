@@ -1,11 +1,11 @@
 #ifndef R2D_CONTEXT_FACTORY_H
 #define R2D_CONTEXT_FACTORY_H
 
-#include "Common.h"
+#include "r2d/Common.h"
 
 namespace r2d {
 	PREDECL_CLASS_WITH_PTR(IRenderContext);
-	IRenderContextPtr CreateRenderContext(HWND window);
+	std::auto_ptr<IRenderContext> CreateRenderContext(HWND window);
 }
 
 #endif

@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(11)",
+		"name": "ground",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/DemoLevel/graphic_materials/textures/ground.jpg"
+			}
+		},
+		"effect": {
+			"src": "Data/DemoLevel/graphic_materials/shaders/tnl.fx"
+		}
+	}
+}

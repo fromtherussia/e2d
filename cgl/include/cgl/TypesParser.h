@@ -18,7 +18,8 @@ namespace CglTypes {
 		ctVec4,
 		ctMat22,
 		ctMat33,
-		ctMat44
+		ctMat44,
+		ctString
 	};
 }
 
@@ -32,6 +33,7 @@ namespace CglTypes {
 class TypesParser {
 public:
 	static CglTypes::Type GetType(const string_t& str);
+	static const string_t& ParseString(const string_t& str);
 	static bool ParseBool(const string_t& str);
 	static int ParseInt(const string_t& str);
 	static float ParseFloat(const string_t& str);

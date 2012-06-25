@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(1)",
+		"name": "grass-alpha",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/DemoLevel/graphic_materials/textures/grass-alpha.jpg"
+			}
+		},
+		"effect": {
+			"src": "Data/DemoLevel/graphic_materials/shaders/tnl.fx"
+		}
+	}
+}

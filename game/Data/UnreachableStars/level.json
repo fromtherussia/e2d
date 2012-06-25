@@ -1,0 +1,69 @@
+{
+	"level": {
+		"graphic_materials": {
+			"material1": "graphic_materials/background.json",
+			"material2": "graphic_materials/foreground.json",
+			"material3": "graphic_materials/ground.json",
+			"material4": "graphic_materials/character_animation.json"
+		},
+		"physic_materials": {
+			"material1": "physic_materials/ground.json",
+			"material2": "physic_materials/dummy.json",
+			"material3": "physic_materials/character.json"
+		},
+		"entities": {
+			"entity1": "entities/background.json",
+			"entity2": "entities/foreground.json",
+			"entity3": "entities/ground.json",
+			"entity4": "entities/dummy.json",
+			"entity5": "entities/character.json"
+		},
+		"level": {
+			"group1": {
+				"name": "dummies",
+				"entities": {
+					"entity1" : {
+						"template_name": "dummy",
+						"offset": "vec2(0.0f, 0.0f)",
+						"rotation": "0.0f"
+					},
+					"entity2" : {
+						"template_name": "dummy",
+						"offset": "vec2(100.0f, 0.0f)",
+						"rotation": "0.0f"
+					},
+					"entity3" : {
+						"template_name": "dummy",
+						"offset": "vec2(150.0f, 0.0f)",
+						"rotation": "0.0f"
+					}
+				}
+			},
+			"group2": {
+				"name": "ground",
+				"entities": {
+					"entity1" : {
+						"template_name": "background",
+						"offset": "vec2(0.0f, 0.0f)",
+						"rotation": "0.0f"
+					},
+					"entity2" : {
+						"template_name": "foreground",
+						"offset": "vec2(150.0f, 0.0f)",
+						"rotation": "0.0f"
+					},
+					"entity3" : {
+						"template_name": "ground1",
+						"offset": "vec2(100.0f, 0.0f)",
+						"rotation": "0.0f"
+					},
+					"entity4" : {
+						"template_name": "ground2",
+						"offset": "vec2(100.0f, 0.0f)",
+						"rotation": "0.0f"
+					}
+				}
+			}
+		}
+	}
+}

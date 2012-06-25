@@ -5,9 +5,11 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <stdexcept>
+#include <fstream>
 #include <iostream>
 #include <math.h>
 #include <string.h>
+#include <memory>
 #include <vector>
 #include <map>
 #include <assert.h>
@@ -19,13 +21,20 @@
 #include <glm/ext.hpp>
 
 // boost
+#include <boost/scoped_ptr.hpp>
+#include <boost/scoped_array.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/ptr_container/ptr_vector.hpp>
+
+// cgl
+#include "Exception.h"
 
 // base types
 typedef unsigned int uint;
 typedef unsigned char binary_data_t;
 typedef std::string string_t;
 typedef std::wstring wstring_t;
+typedef std::auto_ptr<std::istream> istream_ptr;
 
 // vector types
 typedef glm::ivec2 ivec2;
@@ -49,6 +58,14 @@ inline bool inRangeNonStrict(const T& a, const T& b, const T& v) {
 	return v > a && v < b;
 }
 
+template <typename T2, typename T1>
+inline std::auto_ptr<T2> dynamic_auto_ptr_cast(std::auto_ptr<T1>& ptr) {
+	T2* p2 = dynamic_cast<T2*>(ptr.release());
+	CGL_CHECK(p2 != NULL);
+	return std::auto_ptr<T2>(p2);
+}
+
+
 namespace HorisontalAlign {
 	enum Align {
 		Bottom,
@@ -70,6 +87,10 @@ namespace VerticalAlign {
 #define PREDECL_CLASS_WITH_PTR(className) \
 	class className;\
 	DEFPTR(className);
+
+#define PREDECL_STRUCT_WITH_PTR(structName) \
+	struct structName;\
+	DEFPTR(structName);
 
 #define RESTRICT_COPY_CTOR(className) \
 	className(const className&);

@@ -11,6 +11,7 @@ namespace RectResizeDirection {
 	};
 };
 
+// TODO: add Rect(const vec4&) ctor or kinda that
 template <class vec2type>
 class RectTy {
 	typedef typename vec2type::value_type choordType;

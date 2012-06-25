@@ -1,0 +1,29 @@
+{
+	"material": {
+		"name": "transform",
+		"pass_projection_matrix": "bool(true)",
+		"pass_view_matrix": "bool(true)",
+		"pass_model_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "grass",
+				"src": "Grass.jpg"
+			},
+			"texture2": {
+				"name": "normal_map",
+				"src": "NormalMap.jpg"
+			}
+		},
+		"effect": {
+			"src": "Shader.fx",
+			"attributes": {
+				"bool_param": "bool(true)",
+				"int_param": "int(1)",
+				"float_param": "float(1.0f)",
+				"vec3_param": "vec3(1, 0, 0)",
+				"vec4_param": "vec4(1, 0, 0, 0)",
+				"mat44_param": "mat44(1, 0, 0, 0; 0, 1, 0, 0; 0, 0, 1, 0; 0, 0, 0, 1)"
+			}
+		}
+	}
+}

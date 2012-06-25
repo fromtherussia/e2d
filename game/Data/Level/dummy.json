@@ -1,0 +1,16 @@
+{
+	"material": {
+		"id": "int(13)",
+		"name": "dummy",
+		"pass_wvp_matrix": "bool(true)",
+		"textures": {
+			"texture1": {
+				"name": "texture1",
+				"src": "Data/Dummy.png"
+			}
+		},
+		"effect": {
+			"src": "Data/Shader.fx"
+		}
+	}
+}

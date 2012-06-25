@@ -1,6 +1,6 @@
-#include "D3DCommon.h"
+#include "r2d/D3D/D3DCommon.h"
 
-#include "D3DUtils.h"
+#include "r2d/D3D/D3DUtils.h"
 
 namespace r2d {
 	matrix44 ToMatrix44(const D3DXMATRIXA16& matrix) {

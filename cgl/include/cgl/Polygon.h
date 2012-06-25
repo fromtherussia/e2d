@@ -22,7 +22,7 @@ public:
 	size_t VerteciesCount() const;
 	Rect GetBoundingRect() const;
 	vec2 GetCenter() const;
-	void Center();
+	vec2 Center();
 
 private:
 	Vertecies m_vertecies;

@@ -1,0 +1,67 @@
+{
+	"graphic_materials": {
+		"material1": "Data/DemoLevel/graphic_materials/background.json",
+		"material2": "Data/DemoLevel/graphic_materials/dummy.json",
+		"material3": "Data/DemoLevel/graphic_materials/foreground.json",
+		"material4": "Data/DemoLevel/graphic_materials/grass.json",
+		"material5": "Data/DemoLevel/graphic_materials/grass-alpha.json",
+		"material6": "Data/DemoLevel/graphic_materials/ground.json"
+	},
+	"physic_materials": {
+		"material1": "Data/DemoLevel/physic_materials/rock.json"
+	},
+	"entity_prototypes": {
+		"entity1": "Data/DemoLevel/entities/background.json",
+		"entity3": "Data/DemoLevel/entities/entity1.json",
+		"entity5": "Data/DemoLevel/entities/entity3.json",
+		"entity6": "Data/DemoLevel/entities/foreground.json",
+		"entity7": "Data/DemoLevel/entities/ground.json"
+	},
+	"level": {
+		"group1": {
+			"name": "dummies",
+			"entities": {
+				"entity1" : {
+					"template_name": "box",
+					"offset": "vec2(0.0f, 0.0f)",
+					"rotation": "0.0f"
+				},
+				"entity2" : {
+					"template_name": "box",
+					"offset": "vec2(100.0f, 0.0f)",
+					"rotation": "0.0f"
+				},
+				"entity3" : {
+					"template_name": "box",
+					"offset": "vec2(150.0f, 0.0f)",
+					"rotation": "0.0f"
+				}
+			}
+		},
+		"group2": {
+			"name": "ground",
+			"entities": {
+				"entity1" : {
+					"template_name": "background",
+					"offset": "vec2(0.0f, 0.0f)",
+					"rotation": "0.0f"
+				},
+				"entity2" : {
+					"template_name": "foreground",
+					"offset": "vec2(150.0f, 0.0f)",
+					"rotation": "0.0f"
+				},
+				"entity3" : {
+					"template_name": "ground1",
+					"offset": "vec2(100.0f, 0.0f)",
+					"rotation": "0.0f"
+				},
+				"entity4" : {
+					"template_name": "ground2",
+					"offset": "vec2(100.0f, 0.0f)",
+					"rotation": "0.0f"
+				}
+			}
+		}
+	}
+}

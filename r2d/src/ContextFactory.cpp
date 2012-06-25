@@ -1,14 +1,12 @@
 #include <windows.h>
 
-#include "ContextFactory.h"
+#include "r2d/ContextFactory.h"
 
-#include "D3DCommon.h"
-#include "D3DRenderContext.h"
+#include "r2d/D3D/D3DCommon.h"
+#include "r2d/D3D/D3DRenderContext.h"
 
 namespace r2d {
-	IRenderContextPtr CreateRenderContext(HWND window) {
-		return boost::dynamic_pointer_cast<IRenderContext>(
-			D3DRenderContextPtr(new D3DRenderContext(window))
-		);
+	std::auto_ptr<IRenderContext> CreateRenderContext(HWND window) {
+		return std::auto_ptr<IRenderContext>(new D3DRenderContext(window));
 	}
 }

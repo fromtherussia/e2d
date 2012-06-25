@@ -1,0 +1,44 @@
+{
+	"entity": {
+		"type": "complex_physic_entity",
+		"physics_type": "static",
+		"offset": "vec2(450.0f, 100.0f)",
+		"graphics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "character",
+					"depth": "int(1)",
+					"offset": "vec2(0.0, 0.0f)",
+					"uv": "rect(0.0f, 0.0f, 0.111111f, 1.0f)",
+					"vertices": {
+						"vertex1": "vec2(0.0f, 0.0f)",
+						"vertex2": "vec2(60.0f, 0.0f)",
+						"vertex3": "vec2(60.0f, 90.0f)",
+						"vertex4": "vec2(0.0f, 90.0f)"
+					},
+					"is_animated": "bool(true)",
+					"frame_time": "float(0.1f)",
+					"step": "float(0.111111f)",
+					"frames_count": "int(9)"
+				}
+			}
+		},
+		"physics": {
+			"shapes": {
+				"shape1": {
+					"type": "polygon_shape",
+					"material": "rock",
+					"world": "int(1)",
+					"offset": "vec2(0.0f, 0.0f)",
+					"vertices": {
+						"vertex1": "vec2(0.0f, 0.0f)",
+						"vertex2": "vec2(60.0f, 0.0f)",
+						"vertex3": "vec2(60.0f, 90.0f)",
+						"vertex4": "vec2(0.0f, 90.0f)"
+					}
+				}
+			}
+		}
+	}
+}

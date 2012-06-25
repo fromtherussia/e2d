@@ -118,20 +118,13 @@ vec2 Polygon2d::GetCenter() const {
 		return vec2();
 	}
 	
-	vec2 center;
-	for (size_t i = 0; i < m_vertecies.size(); ++i) {
-		center.x += m_vertecies[i].x;
-		center.y += m_vertecies[i].y;
-	}
-	
-	center.x /= m_vertecies.size();
-	center.y /= m_vertecies.size();
-	return center;
+	return GetBoundingRect().Center();
 }
 
-void Polygon2d::Center() {
+vec2 Polygon2d::Center() {
 	vec2 center = GetCenter();
 	for (size_t i = 0; i < m_vertecies.size(); ++i) {
 		m_vertecies[i] -= center;
 	}
+	return center;
 }
