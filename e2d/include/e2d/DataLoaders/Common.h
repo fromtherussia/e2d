@@ -7,6 +7,7 @@ namespace e2d {
 	namespace loaders {
 		class SceneLoader;
 		class IGraphicShapeLoader;
+		class IPhysicShapeLoader;
 		class IEntityLoader;
 		class AbstractEntityLoader;
 	}

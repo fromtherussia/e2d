@@ -85,6 +85,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DataLoaders\SceneLoader.cpp" />
     <ClCompile Include="src\Engine\GraphicMaterialTable.cpp" />
     <ClCompile Include="src\Engine\PhysicMaterialTable.cpp" />
     <ClCompile Include="src\Engine\Scene.cpp" />

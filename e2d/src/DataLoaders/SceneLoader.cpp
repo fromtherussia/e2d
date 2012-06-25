@@ -10,51 +10,43 @@
 #include <r2d/IEffect.h>
 #include <r2d/IMaterial.h>
 #include <r2d/IFactory.h>
-#include <r2d/CompositeRenderable.h>
 
-#include "Physics/Common.h"
-#include "Physics/IPrimitive.h"
+#include <p2d/IBody.h>
+#include <p2d/World.h>
 
-#include "Engine/IGraphicMaterialTable.h"
-#include "Engine/IPhysicMaterialTable.h"
-#include "Engine/IEntityFactory.h"
-#include "Engine/IResourceController.h"
-#include "Engine/IEntity.h"
-#include "Engine/ComplexPhysicEntity.h"
-// <KILLME>
-#include "Physics/World.h"
-// </KILLME>
-#include "Engine/Scene.h"
+#include "e2d/Engine/GraphicMaterialTable.h"
+#include "e2d/Engine/PhysicMaterialTable.h"
+#include "e2d/Engine/IEntityFactory.h"
+#include "e2d/Engine/IResourceController.h"
+#include "e2d/Engine/IEntity.h"
+#include "e2d/Engine/AbstractEntity.h"
+#include "e2d/Engine/Scene.h"
 
-#include "DataLoaders/Common.h"
-#include "DataLoaders/Utils.h"
-#include "DataLoaders/ResourceLoader.h"
-#include "DataLoaders/IGraphicShapeLoader.h"
-#include "DataLoaders/IPhysicShapeLoader.h"
-#include "DataLoaders/IEntityLoader.h"
-#include "DataLoaders/PolygonShapeLoader.h"
-#include "DataLoaders/CircleShapeLoader.h"
-#include "DataLoaders/DynamicGeometryObjectLoader.h"
-#include "DataLoaders/ComplexPhysicEntityLoader.h"
-#include "DataLoaders/SceneLoader.h"
+#include "e2d/DataLoaders/Utils.h"
+#include "e2d/DataLoaders/ResourceLoader.h"
+#include "e2d/DataLoaders/IGraphicShapeLoader.h"
+#include "e2d/DataLoaders/IPhysicShapeLoader.h"
+#include "e2d/DataLoaders/IEntityLoader.h"
+#include "e2d/DataLoaders/PolygonShapeLoader.h"
+#include "e2d/DataLoaders/CircleShapeLoader.h"
+#include "e2d/DataLoaders/DynamicGeometryObjectLoader.h"
+#include "e2d/DataLoaders/AbstractEntityLoader.h"
+
+#include "e2d/DataLoaders/SceneLoader.h"
 
 using namespace boost::property_tree;
 
 namespace e2d {
 	namespace loaders {
-		
-		// Public
-		
-		SceneLoader::SceneLoader(engine::Scene* scene):
-			scene(scene) {
-			this->AddGraphicShapeLoader("polygon_shape", new DynamicGeometryObjectLoader());
-			this->AddPhysicShapeLoader("polygon_shape", new PolygonShapeLoader());
-			this->AddPhysicShapeLoader("circle_shape", new CircleShapeLoader());
-			this->AddEntityLoader("complex_physic_entity", new ComplexPhysicEntityLoader());
+		SceneLoader::SceneLoader(engine::Scene& scene):
+			m_scene(scene) {
+			this->AddGraphicShapeLoader("polygon_shape", std::auto_ptr<IGraphicShapeLoader>(new DynamicGeometryObjectLoader()));
+			this->AddPhysicShapeLoader("polygon_shape", std::auto_ptr<IPhysicShapeLoader>(new PolygonShapeLoader()));
+			this->AddPhysicShapeLoader("circle_shape", std::auto_ptr<IPhysicShapeLoader>(new CircleShapeLoader()));
+			this->AddEntityLoader("complex_physic_entity", std::auto_ptr<IEntityLoader>(new AbstractEntityLoader()));
 		}
 		
 		SceneLoader::~SceneLoader() {
-
 		}
 
 		void SceneLoader::LoadScene(std::istream& inputStream) {
@@ -80,18 +72,18 @@ namespace e2d {
 			BOOST_FOREACH(ptree::value_type& entityPrototypeNode, entityPrototypesNode) {
 				LOAD_TYPED_PARAM_FROM_NODE(entityPrototypeNode, string_t, fileName, TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 				istream_ptr entityInputStream = ResourceLoader::GetResourceFileStream(fileName, ResourceLoader::ENTITY_PROTOTYPE);
-				*scene << ParseEntity(*entityInputStream);
+				m_scene << LoadEntity(*entityInputStream);
 			}
 		}
 		
-		engine::IEntity* SceneLoader::ParseEntity(std::istream& inputStream) {
+		std::auto_ptr<engine::IEntity> SceneLoader::LoadEntity(std::istream& inputStream) {
 			ptree parsedEntity;
 			read_json(inputStream, parsedEntity);
 			
 			ptree& entityNode = parsedEntity.get_child("entity");
 			LOAD_TYPED_PARAM_FROM_SUBNODE(entityNode, string_t, entityType, "type", TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 
-			return GetEntityLoader(entityType)->Load(parsedEntity, scene, this);
+			return GetEntityLoader(entityType).Load(parsedEntity, m_scene, *this);
 		}
 
 		r2d::IMaterial* SceneLoader::LoadGraphicMaterial(std::istream& inputStream) {
@@ -128,14 +120,13 @@ namespace e2d {
 			if (passWVPMatrix) {
 				flags |= r2d::MaterialFlags::SetConstMatrixWVP;
 			}
-			if (flags == 0) {
-				throw std::runtime_error("no material flags set");
-			}
+
+			CGL_CHECK(flags != r2d::MaterialFlags::NoFlags);
 			
 			// Creating material
-			r2d::IFactory* factoryPtr = scene->GetGraphicObjectsFactory();
-			std::auto_ptr<r2d::IMaterial> materialPtr = factoryPtr->CreateMaterial(
-				factoryPtr->CreateEffect(effectSrc),
+			r2d::IFactory& factoryPtr = m_scene.GetGraphicObjectsFactory();
+			std::auto_ptr<r2d::IMaterial> materialPtr = factoryPtr.CreateMaterial(
+				factoryPtr.CreateEffect(effectSrc),
 				materialId,
 				(r2d::MaterialFlags::Flags)flags
 			);
@@ -146,13 +137,14 @@ namespace e2d {
 				LOAD_TYPED_PARAM_FROM_SUBNODE(textureNode.second, string_t, textureName, "name", TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 				materialPtr->AddTexture(
 					textureName, 
-					factoryPtr->CreateTexture(textureSrc)
+					factoryPtr.CreateTexture(textureSrc)
 				);
 			}
 
+			r2d::IMaterial* tmpMaterialPtr = materialPtr.get();
 			// Adding material to material table
-			scene->GetGraphicMaterialTable()->AddGraphicMaterial(materialName, materialPtr.release());
-			return materialPtr;
+			m_scene.GetGraphicMaterialTable().AddGraphicMaterial(materialName, materialPtr);
+			return tmpMaterialPtr;
 		}
 		
 		p2d::Material* SceneLoader::LoadPhysicMaterial(std::istream& inputStream) {
@@ -176,58 +168,49 @@ namespace e2d {
 			LOAD_TYPED_OPTIONAL_PARAM_FROM_SUBNODE(materialNode, bool, isRotationDisabled, false, "is_rotation_disabled", TypesParser::GetType, TypesParser::ParseBool, CglTypes::ctBool);
 
 			// Creating material
-			p2d::Material* pMaterial = new p2d::Material();
-			pMaterial->m_density = density;
-			pMaterial->m_friction = friction;
-			pMaterial->m_restitution = restitution;
-			pMaterial->m_linearDamping = linearDamping;
-			pMaterial->m_angularDamping = angularDamping;
-			pMaterial->m_isSensor = isSensor;
-			pMaterial->m_bullet = isBullet;
-			pMaterial->m_active = isActive;
-			pMaterial->m_awake = isAwake;
-			pMaterial->m_allowSleep = allowSleep;
-			pMaterial->m_fixedRotation = isRotationDisabled;
+			p2d::Material* materialPtr = new p2d::Material();
+			materialPtr->m_density = density;
+			materialPtr->m_friction = friction;
+			materialPtr->m_restitution = restitution;
+			materialPtr->m_linearDamping = linearDamping;
+			materialPtr->m_angularDamping = angularDamping;
+			materialPtr->m_isSensor = isSensor;
+			materialPtr->m_bullet = isBullet;
+			materialPtr->m_active = isActive;
+			materialPtr->m_awake = isAwake;
+			materialPtr->m_allowSleep = allowSleep;
+			materialPtr->m_fixedRotation = isRotationDisabled;
 
-			scene->GetPhysicMaterialTable()->AddPhysicMaterial(materialName, pMaterial);
+			m_scene.GetPhysicMaterialTable().AddPhysicMaterial(materialName, std::auto_ptr<p2d::Material>(materialPtr));
 
-			return pMaterial;
+			return materialPtr;
 		}
 		
-		// Private
-
-		void SceneLoader::AddGraphicShapeLoader(const string_t& shapeTypeName, IGraphicShapeLoader* pLoader) {
-			m_graphicShapeLoaders[shapeTypeName] = IGraphicShapeLoaderPtr(pLoader);
+		void SceneLoader::AddGraphicShapeLoader(const string_t& shapeTypeName, std::auto_ptr<IGraphicShapeLoader> pLoader) {
+			m_graphicShapeLoaders[shapeTypeName] = IGraphicShapeLoaderPtr(pLoader.release());
 		}
 
-		void SceneLoader::AddPhysicShapeLoader(const string_t& shapeTypeName, IPhysicShapeLoader* pLoader) {
-			m_physicShapeLoaders[shapeTypeName] = IPhysicShapeLoaderPtr(pLoader);
+		void SceneLoader::AddPhysicShapeLoader(const string_t& shapeTypeName, std::auto_ptr<IPhysicShapeLoader> pLoader) {
+			m_physicShapeLoaders[shapeTypeName] = IPhysicShapeLoaderPtr(pLoader.release());
 		}
 
-		void SceneLoader::AddEntityLoader(const string_t& shapeTypeName, IEntityLoader* pLoader) {
-			m_entityLoaders[shapeTypeName] = IEntityLoaderPtr(pLoader);
+		void SceneLoader::AddEntityLoader(const string_t& shapeTypeName, std::auto_ptr<IEntityLoader> pLoader) {
+			m_entityLoaders[shapeTypeName] = IEntityLoaderPtr(pLoader.release());
 		}
 
-		const IGraphicShapeLoader* SceneLoader::GetGraphicShapeLoader(const string_t& shapeTypeName) {
-			if (m_graphicShapeLoaders.count(shapeTypeName) == 0) {
-				throw std::runtime_error(formatString("can't find loader for graphic shape with type '%s'", shapeTypeName.c_str()));
-			}
-			return m_graphicShapeLoaders[shapeTypeName].get();
+		const IGraphicShapeLoader& SceneLoader::GetGraphicShapeLoader(const string_t& shapeTypeName) {
+			CGL_CHECK(m_graphicShapeLoaders.count(shapeTypeName) != 0);
+			return *m_graphicShapeLoaders[shapeTypeName].get();
 		}
 
-		const IPhysicShapeLoader* SceneLoader::GetPhysicShapeLoader(const string_t& shapeTypeName) {
-			if (m_physicShapeLoaders.count(shapeTypeName) == 0) {
-				throw std::runtime_error(formatString("can't find loader for physic shape with type '%s'", shapeTypeName.c_str()));
-			}
-			return m_physicShapeLoaders[shapeTypeName].get();
+		const IPhysicShapeLoader& SceneLoader::GetPhysicShapeLoader(const string_t& shapeTypeName) {
+			CGL_CHECK(m_physicShapeLoaders.count(shapeTypeName) != 0);
+			return *m_physicShapeLoaders[shapeTypeName].get();
 		}
 
-		const IEntityLoader* SceneLoader::GetEntityLoader(const string_t& entityTypeName) {
-			if (m_entityLoaders.count(entityTypeName) == 0) {
-				throw std::runtime_error(formatString("can't find loader for entity with type '%s'", entityTypeName.c_str()));
-			}
-			return m_entityLoaders[entityTypeName].get();
+		const IEntityLoader& SceneLoader::GetEntityLoader(const string_t& entityTypeName) {
+			CGL_CHECK(m_entityLoaders.count(entityTypeName) != 0);
+			return *m_entityLoaders[entityTypeName].get();
 		}
-
 	}
 }

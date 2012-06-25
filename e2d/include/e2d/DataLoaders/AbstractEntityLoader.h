@@ -7,7 +7,7 @@ namespace e2d {
 	namespace loaders {
 		class AbstractEntityLoader: public IEntityLoader {
 		public:
-			virtual engine::IEntity* Load(boost::property_tree::ptree& parsedEntity, engine::IResourceController& resourceController, SceneLoader& sceneLoader) const;
+			virtual std::auto_ptr<engine::IEntity> Load(boost::property_tree::ptree& parsedEntity, engine::IResourceController& resourceController, SceneLoader& sceneLoader) const;
 		};
 	}
 }
