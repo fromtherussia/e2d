@@ -2,7 +2,6 @@
 
 #include "p2d/DebugRenderer.h"
 #include "p2d/Utils.h"
-#include "p2d/IShape.h"
 
 #include "p2d/CircleShape.h"
 
@@ -11,7 +10,7 @@ namespace p2d {
 		m_circle(circle) {
 		m_circleShapePtr = new b2CircleShape;
 		m_circleShapePtr->m_radius = circle.GetRadius();
-		m_circleShapePtr->m_p = ToBox2Vec(circle.GetOrigin());
+		m_circleShapePtr->m_p = ToBox2dVec(circle.GetOrigin());
 		Construct(m_circleShapePtr, attrs);
 	}
 

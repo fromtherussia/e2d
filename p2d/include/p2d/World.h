@@ -9,7 +9,8 @@ namespace p2d {
 		World(const vec2& gravity, bool sleepWhenInactive = true);
 		~World();
 		void Simulate(float frameTime);
-
+		std::auto_ptr<CollisionListeners> QueryPrimitives(const Rect& rect, BodyKind::Kind kind) const;
+		std::auto_ptr<RaycastIntersections> QueryPrimitives(const vec2& lineBegin, const vec2& lineEnd, BodyKind::Kind kind, bool findFirst = false) const;
 	private:
 		std::auto_ptr<b2World> m_worldPtr;
 

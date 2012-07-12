@@ -32,6 +32,7 @@
 #include <p2d/DebugRenderer.h>
 #include <p2d/PolygonShape.h>
 #include <p2d/CircleShape.h>
+#include <p2d/ChainShape.h>
 #include <p2d/CompositeBody.h>
 #include <p2d/SimpleBody.h>
 #include <p2d/LengthJoint.h>
@@ -63,6 +64,9 @@ public:
 	}
 	virtual void RenderPoint(const vec2& point, const ivec3& color = DEFAULT_COLOR_RGB, float pointSize = 1.0f) const {
 		contextPtr->RenderPoint(point, color, pointSize);
+	}
+	virtual void RenderPolygonalChain(const PolygonalChain2d& p, const ivec3& color = DEFAULT_COLOR_RGB) const {
+		contextPtr->RenderPolygonalChain(p, color);
 	}
 	virtual void RenderLine(const vec2& point1, const vec2& point2, const ivec3& color = DEFAULT_COLOR_RGB) const {
 		contextPtr->RenderLine(point1, point2, color);
@@ -157,6 +161,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	Polygon2d polygon1(Rect(-300.0f, -50.0f, 300.0f, 0.0f));
 	;
+	Polygon2d polygon2;
+
+	polygon2 << vec2(-200.0f, -200.0f) << vec2(-180.0f, -300.0f) << vec2(-100.0f, -250.0f) << vec2(0.0f, -300.0f) << vec2(100.0f, -100.0f) << vec2(200.0f, -250.0f);
+
+	polygon2 += vec2(-200.0f, 90.0f);
 	
 	motion.m_angle = 0.2f;
 	physicsBodies.push_back(
@@ -169,6 +178,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		))
 	);
 	motion.m_angle = 0.0f;
+
+	physicsBodies.push_back(
+			std::auto_ptr<p2d::IBody>(new p2d::SimpleBody(
+			*physicsWorld,
+			std::auto_ptr<p2d::IShape>(new p2d::ChainShape(polygon2, material)),
+			p2d::IBody::ptStatic,
+			material,
+			motion
+		))
+	);
 
 	material.m_restitution = 0.5f;
 	motion.m_position = vec2(0.0f, 300.0f);
@@ -197,10 +216,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	physicsJoints.push_back(
 		std::auto_ptr<p2d::IJoint>(new p2d::LengthJoint(
 			*physicsWorld,
-			physicsBodies[1],
 			physicsBodies[2],
-			physicsBodies[1].GetPosition() + vec2(0.0f, 15.0f),
-			physicsBodies[2].GetPosition() + vec2(0.0f, 5.0f)
+			physicsBodies[3],
+			physicsBodies[2].GetPosition() + vec2(0.0f, 15.0f),
+			physicsBodies[3].GetPosition() + vec2(0.0f, 5.0f)
 		))
 	);
 	//

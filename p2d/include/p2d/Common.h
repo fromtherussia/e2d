@@ -84,6 +84,14 @@ namespace p2d {
 		float m_angularVelocity;
 	};
 
+	namespace BodyKind {
+		enum Kind {
+			bkStatic,
+			bkKinematic,
+			bkDynamic
+		};
+	};
+
 	class IJoint;
 	class LengthJoint;
 	class IBody;
@@ -91,9 +99,56 @@ namespace p2d {
 	class IShape;
 	class CircleShape;
 	class PolygonShape;
+	class ChainShape;
 	class CompositeBody;
 	class World;
 	class DebugRenderer;
+
+	struct CollisionParams {
+		CollisionParams(const vec2& localPoint1, const vec2& localPoint2, const vec2& globalPoint1, const vec2& globalPoint2, const vec2& normal):
+			isTwoPoints(true),
+			localPoint1(localPoint1),
+			localPoint2(localPoint2),
+			globalPoint1(globalPoint1),
+			globalPoint2(globalPoint2),
+			normal(normal) {
+		}
+
+		CollisionParams(const vec2& localPoint1, const vec2& globalPoint1, const vec2& normal):
+			isTwoPoints(false),
+			localPoint1(localPoint1),
+			globalPoint1(globalPoint1),
+			normal(normal) {
+		}
+
+		bool isTwoPoints;
+		vec2 localPoint1;
+		vec2 localPoint2;
+		vec2 globalPoint1;
+		vec2 globalPoint2;
+		vec2 normal;
+	};
+
+	class ICollisionListener {
+	public:
+		virtual void ProcessCollisionBegin(ICollisionListener& entity, const CollisionParams& collisionParams) = 0;
+		virtual void ProcessCollisionEnd(ICollisionListener& entity, const CollisionParams& collisionParams) = 0;
+	};
+
+	typedef std::vector<ICollisionListener*> CollisionListeners;
+
+	struct RaycastIntersection {
+		RaycastIntersection(ICollisionListener* collisionListenerPtr, const vec2& position, const vec2& normal):
+			collisionListenerPtr(collisionListenerPtr),
+			position(position),
+			normal(normal) {
+		}
+
+		ICollisionListener* collisionListenerPtr;
+		vec2 position;
+		vec2 normal;
+	};
+	typedef std::vector<RaycastIntersection> RaycastIntersections;
 }
 
 #endif

@@ -85,6 +85,7 @@
     <ClCompile Include="src\FrameTimeCounter.cpp" />
     <ClCompile Include="src\GeometryUtils.cpp" />
     <ClCompile Include="src\Polygon.cpp" />
+    <ClCompile Include="src\PolygonalChain.cpp" />
     <ClCompile Include="src\Stopwatch.cpp" />
     <ClCompile Include="src\TgaLoader.cpp" />
     <ClCompile Include="src\TypesParser.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="include\cgl\MathTypes.h" />
     <ClInclude Include="include\cgl\ParabolicMoving.h" />
     <ClInclude Include="include\cgl\Polygon.h" />
+    <ClInclude Include="include\cgl\PolygonalChain.h" />
     <ClInclude Include="include\cgl\Rect.h" />
     <ClInclude Include="include\cgl\Stopwatch.h" />
     <ClInclude Include="include\cgl\TgaLoader.h" />

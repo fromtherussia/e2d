@@ -29,9 +29,9 @@ namespace p2d {
 		bodyDef.bullet = attributes.m_bullet;
 		bodyDef.active = attributes.m_active;
 		bodyDef.awake = attributes.m_awake;
-		bodyDef.position = ToBox2Vec(initialMotion.m_position);
+		bodyDef.position = ToBox2dVec(initialMotion.m_position);
 		bodyDef.angle = initialMotion.m_angle;
-		bodyDef.linearVelocity = ToBox2Vec(initialMotion.m_linearVelocity);
+		bodyDef.linearVelocity = ToBox2dVec(initialMotion.m_linearVelocity);
 		bodyDef.angularVelocity = initialMotion.m_angularVelocity;
 
 		m_bodyPtr = m_world.CreateBody(&bodyDef);
@@ -66,23 +66,23 @@ namespace p2d {
 	}
 
 	void IBody::ApplyForce(const vec2& force, const vec2& point) {
-		m_bodyPtr->ApplyForce(ToBox2Vec(force), ToBox2Vec(point));
+		m_bodyPtr->ApplyForce(ToBox2dVec(force), ToBox2dVec(point));
 	}
 
 	void IBody::ApplyImpulse(const vec2& force, const vec2& point) {
-		m_bodyPtr->ApplyLinearImpulse(ToBox2Vec(force), ToBox2Vec(point));
+		m_bodyPtr->ApplyLinearImpulse(ToBox2dVec(force), ToBox2dVec(point));
 	}
 
 	void IBody::SetPosition(const vec2& pos) {
 		m_bodyPtr->SetTransform(
-			ToBox2Vec(pos),
+			ToBox2dVec(pos),
 			m_bodyPtr->GetAngle()
 		);
 	}
 	
 	void IBody::Move(const vec2& delta) {
 		m_bodyPtr->SetTransform(
-			m_bodyPtr->GetPosition() + ToBox2Vec(delta),
+			m_bodyPtr->GetPosition() + ToBox2dVec(delta),
 			m_bodyPtr->GetAngle()
 		);
 	}

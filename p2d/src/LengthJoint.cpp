@@ -12,8 +12,8 @@ namespace p2d {
 		distanceJointDef.Initialize(
 			GetPrimitiveBody(primitive1),
 			GetPrimitiveBody(primitive2),
-			ToBox2Vec(anchor1),
-			ToBox2Vec(anchor2)
+			ToBox2dVec(anchor1),
+			ToBox2dVec(anchor2)
 		);
 		Construct(distanceJointDef);
 	}

@@ -16,6 +16,7 @@ namespace p2d {
 		virtual void ResetWorldTransform() const = 0;
 		virtual void RenderPoint(const vec2& point, const ivec3& color = DEFAULT_COLOR_RGB, float pointSize = 1.0f) const = 0;
 		virtual void RenderLine(const vec2& point1, const vec2& point2, const ivec3& color = DEFAULT_COLOR_RGB) const = 0;
+		virtual void RenderPolygonalChain(const PolygonalChain2d& p, const ivec3& color = DEFAULT_COLOR_RGB) const = 0;
 		virtual void RenderWireRectangle(const Rect& geometry, const ivec3& color = DEFAULT_COLOR_RGB) const = 0;
 		virtual void RenderSolidRectangle(const Rect& geometry, const ivec3& color = DEFAULT_COLOR_RGB) const = 0;
 		virtual void RenderWireCircle(const Circle& c, const ivec3& color = DEFAULT_COLOR_RGB) const = 0;

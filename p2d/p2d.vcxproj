@@ -79,6 +79,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\ChainShape.cpp" />
     <ClCompile Include="src\World.cpp" />
     <ClCompile Include="src\IJoint.cpp" />
     <ClCompile Include="src\LengthJoint.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="src\PolygonShape.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\p2d\ChainShape.h" />
     <ClInclude Include="include\p2d\Common.h" />
     <ClInclude Include="include\p2d\DebugRenderer.h" />
     <ClInclude Include="include\p2d\Utils.h" />

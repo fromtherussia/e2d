@@ -134,6 +134,22 @@ namespace r2d {
 		m_d3dDevice->DrawPrimitiveUP(D3DPT_LINELIST, 1, static_cast<void*>(points), sizeof(WireGeometryVertex));
 	}
 
+	void D3DRenderContext::RenderPolygonalChain(const PolygonalChain2d& p, const ivec3& color) const
+	{
+		WireGeometryVertex* points = new WireGeometryVertex[p.VerteciesCount()];
+		for (uint i = 0; i < p.VerteciesCount(); ++i) {
+			points[i].x = p[i].x;
+			points[i].y = p[i].y;
+			points[i].z = MAX_ZCHOOORD;
+			points[i].color = D3DCOLOR_XRGB(color.x, color.y, color.z);
+		}
+
+		m_d3dDevice->SetFVF(D3DFVF_WIRE_GEOMETRY_VERTEX);
+		m_d3dDevice->DrawPrimitiveUP(D3DPT_LINESTRIP, p.VerteciesCount() - 1, static_cast<void*>(points), sizeof(WireGeometryVertex));
+
+		delete[] points;
+	}
+
 	void D3DRenderContext::RenderWireRectangle(const Rect& geometry, const ivec3& color) const {
 		RenderLine(geometry.LeftBottomCorner(), geometry.RightBottomCorner(), color);
 		RenderLine(geometry.RightBottomCorner(), geometry.RightTopCorner(), color);

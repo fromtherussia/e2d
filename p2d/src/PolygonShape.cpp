@@ -13,7 +13,7 @@ namespace p2d {
 		b2Vec2* vertecies = new b2Vec2[polygon.VerteciesCount()];
 		const Vertecies& polygonVertecies = polygon.GetVertecies();
 		for (size_t vertexNo = 0; vertexNo < polygonVertecies.size(); ++vertexNo) {
-			vertecies[vertexNo] = ToBox2Vec(polygonVertecies[vertexNo]);
+			vertecies[vertexNo] = ToBox2dVec(polygonVertecies[vertexNo]);
 		}
 		
 		m_polygonShapePtr = new b2PolygonShape();
