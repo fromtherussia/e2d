@@ -130,10 +130,6 @@
       <Project>{5fbe4785-f219-45ed-864f-2e7580ab3d8a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\r2d\r2d.vcxproj">
-      <Project>{3c033d09-7a5b-4473-83bb-eeef7674b54f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

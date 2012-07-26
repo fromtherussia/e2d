@@ -9,6 +9,7 @@ struct b2FixtureDef;
 class b2Shape;
 class b2CircleShape;
 class b2PolygonShape;
+class b2ChainShape;
 class b2Body;
 class b2Joint;
 struct b2JointDef;

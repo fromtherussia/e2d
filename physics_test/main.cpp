@@ -1,7 +1,4 @@
-#include <boost/thread.hpp>
-
-#pragma comment(lib, "winmm.lib")
-#pragma comment(lib, "Box2d.lib")
+//#include <boost/thread.hpp>
 
 #include <windows.h>
 #include <mmsystem.h>
@@ -11,8 +8,6 @@
 #include <direct.h> // KILLME
 #include <fstream>
 #include <iostream>
-
-#include <Box2D/Box2D.h>
 
 #include <cgl/Types.h>
 #include <cgl/Utils.h>
@@ -227,15 +222,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 
 	//
-	boost::thread* renderThread = new boost::thread(renderScene);
+	//boost::thread* renderThread = new boost::thread(renderScene);
 	// Dispatching messages
 	MSG msg;
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
+		renderScene();
 	}
 	complete = true;
-	renderThread->join();
+	//renderThread->join();
 	
 	contextPtr->Deinit();
 

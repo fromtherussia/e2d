@@ -71,7 +71,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>Box2D.lib cgl.lib p2d.lib r2d.lib winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>../Build/$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -91,28 +96,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
+      <AdditionalOptions>Box2D.lib cgl.lib p2d.lib r2d.lib winmm.lib %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>../Build/$(Configuration)\</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\cgl\cgl.vcxproj">
-      <Project>{ff5cbdb1-da95-4c47-b39d-70151b3d053c}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\e2d\e2d.vcxproj">
-      <Project>{e171a3de-73c4-4d54-af79-f54203c4db77}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\p2d\p2d.vcxproj">
-      <Project>{5fbe4785-f219-45ed-864f-2e7580ab3d8a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\r2d\r2d.vcxproj">
-      <Project>{3c033d09-7a5b-4473-83bb-eeef7674b54f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
