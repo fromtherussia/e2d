@@ -9,9 +9,9 @@ namespace e2d {
 			m_physicMaterialTable[materialName] = MaterialPtr(materialPtr.release());
 		}
 
-		p2d::Material* PhysicMaterialTable::GetPhysicMaterial(const string_t& materialName) {
+		p2d::Material& PhysicMaterialTable::GetPhysicMaterial(const string_t& materialName) {
 			CGL_CHECK(m_physicMaterialTable.count(materialName) != 0);
-			return m_physicMaterialTable[materialName].get();
+			return *m_physicMaterialTable[materialName];
 		}
 
 		bool PhysicMaterialTable::HasPhysicMaterial(const string_t& materialName) {

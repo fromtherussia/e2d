@@ -32,7 +32,7 @@ namespace e2d {
 			return std::auto_ptr<p2d::IShape>(
 				new p2d::PolygonShape(
 					geometry,
-					*resourceController.GetPhysicMaterialTable().GetPhysicMaterial(materialName)
+					resourceController.GetPhysicMaterialTable().GetPhysicMaterial(materialName)
 				)
 			);
 		}

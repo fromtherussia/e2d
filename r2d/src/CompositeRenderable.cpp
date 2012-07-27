@@ -4,9 +4,9 @@
 #include "r2d/CompositeRenderable.h"
 
 namespace r2d {
-	CompositeRenderable::CompositeRenderable(IRenderContext& renderContext, IMaterial* materialPtr):
+	CompositeRenderable::CompositeRenderable(IRenderContext& renderContext, IMaterial& material):
 		m_renderContext(renderContext),
-		IRenderable(materialPtr) {
+		IRenderable(material) {
 	}
 
 	CompositeRenderable::~CompositeRenderable() {

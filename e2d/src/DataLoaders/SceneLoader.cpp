@@ -38,8 +38,8 @@ using namespace boost::property_tree;
 
 namespace e2d {
 	namespace loaders {
-		SceneLoader::SceneLoader(engine::Scene& scene):
-			m_scene(scene) {
+		SceneLoader::SceneLoader(engine::IResourceController& resourceController):
+			m_resourceController(resourceController) {
 			this->AddGraphicShapeLoader("polygon_shape", std::auto_ptr<IGraphicShapeLoader>(new DynamicGeometryObjectLoader()));
 			this->AddPhysicShapeLoader("polygon_shape", std::auto_ptr<IPhysicShapeLoader>(new PolygonShapeLoader()));
 			this->AddPhysicShapeLoader("circle_shape", std::auto_ptr<IPhysicShapeLoader>(new CircleShapeLoader()));
@@ -72,7 +72,7 @@ namespace e2d {
 			BOOST_FOREACH(ptree::value_type& entityPrototypeNode, entityPrototypesNode) {
 				LOAD_TYPED_PARAM_FROM_NODE(entityPrototypeNode, string_t, fileName, TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 				istream_ptr entityInputStream = ResourceLoader::GetResourceFileStream(fileName, ResourceLoader::ENTITY_PROTOTYPE);
-				m_scene << LoadEntity(*entityInputStream);
+				//m_scene << LoadEntity(*entityInputStream);
 			}
 		}
 		
@@ -83,10 +83,10 @@ namespace e2d {
 			ptree& entityNode = parsedEntity.get_child("entity");
 			LOAD_TYPED_PARAM_FROM_SUBNODE(entityNode, string_t, entityType, "type", TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 
-			return GetEntityLoader(entityType).Load(parsedEntity, m_scene, *this);
+			return std::auto_ptr<engine::IEntity>(NULL);//GetEntityLoader(entityType).Load(parsedEntity, m_scene, *this);
 		}
 
-		r2d::IMaterial* SceneLoader::LoadGraphicMaterial(std::istream& inputStream) {
+		r2d::IMaterial& SceneLoader::LoadGraphicMaterial(std::istream& inputStream) {
 			ptree parsedEntity;
 			read_json(inputStream, parsedEntity);
 			
@@ -124,9 +124,9 @@ namespace e2d {
 			CGL_CHECK(flags != r2d::MaterialFlags::NoFlags);
 			
 			// Creating material
-			r2d::IFactory& factoryPtr = m_scene.GetGraphicObjectsFactory();
-			std::auto_ptr<r2d::IMaterial> materialPtr = factoryPtr.CreateMaterial(
-				factoryPtr.CreateEffect(effectSrc),
+			r2d::IFactory& factory = m_resourceController.GetGraphicObjectsFactory();
+			std::auto_ptr<r2d::IMaterial> materialPtr = factory.CreateMaterial(
+				factory.CreateEffect(effectSrc),
 				materialId,
 				(r2d::MaterialFlags::Flags)flags
 			);
@@ -137,17 +137,17 @@ namespace e2d {
 				LOAD_TYPED_PARAM_FROM_SUBNODE(textureNode.second, string_t, textureName, "name", TypesParser::GetType, TypesParser::ParseString, CglTypes::ctString);
 				materialPtr->AddTexture(
 					textureName, 
-					factoryPtr.CreateTexture(textureSrc)
+					factory.CreateTexture(textureSrc)
 				);
 			}
 
-			r2d::IMaterial* tmpMaterialPtr = materialPtr.get();
+			r2d::IMaterial& tmpMaterial = *materialPtr;
 			// Adding material to material table
-			m_scene.GetGraphicMaterialTable().AddGraphicMaterial(materialName, materialPtr);
-			return tmpMaterialPtr;
+			m_resourceController.GetGraphicMaterialTable().AddGraphicMaterial(materialName, materialPtr);
+			return tmpMaterial;
 		}
 		
-		p2d::Material* SceneLoader::LoadPhysicMaterial(std::istream& inputStream) {
+		p2d::Material& SceneLoader::LoadPhysicMaterial(std::istream& inputStream) {
 			ptree parsedEntity;
 			read_json(inputStream, parsedEntity);
 
@@ -181,9 +181,9 @@ namespace e2d {
 			materialPtr->m_allowSleep = allowSleep;
 			materialPtr->m_fixedRotation = isRotationDisabled;
 
-			m_scene.GetPhysicMaterialTable().AddPhysicMaterial(materialName, std::auto_ptr<p2d::Material>(materialPtr));
+			m_resourceController.GetPhysicMaterialTable().AddPhysicMaterial(materialName, std::auto_ptr<p2d::Material>(materialPtr));
 
-			return materialPtr;
+			return *materialPtr;
 		}
 		
 		void SceneLoader::AddGraphicShapeLoader(const string_t& shapeTypeName, std::auto_ptr<IGraphicShapeLoader> pLoader) {

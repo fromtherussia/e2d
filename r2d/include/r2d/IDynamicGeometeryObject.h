@@ -6,8 +6,8 @@
 namespace r2d {
 	class IDynamicGeometeryObject: public IRenderable {
 	public:
-		IDynamicGeometeryObject(IMaterial* materialPtr): 
-			IRenderable(materialPtr) {
+		IDynamicGeometeryObject(IMaterial& material): 
+			IRenderable(material) {
 		};
 		virtual ~IDynamicGeometeryObject() {};
 		// Geometry data access

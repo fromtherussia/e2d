@@ -29,5 +29,13 @@ namespace e2d {
 			}
 			polygon.Center();
 		}
+
+		void LoadPolygonalChain(boost::property_tree::ptree& polygonNode, PolygonalChain2d& polygonalChain) {
+			BOOST_FOREACH(ptree::value_type& child, polygonNode) {
+				LOAD_TYPED_PARAM_FROM_NODE(child, vec2, vertex, TypesParser::GetType, TypesParser::ParseVec2, CglTypes::ctVec2);
+				polygonalChain << vertex;
+			}
+			polygonalChain.Center();
+		}
 	}
 }

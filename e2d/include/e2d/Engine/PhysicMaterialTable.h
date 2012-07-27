@@ -8,7 +8,7 @@ namespace e2d {
 		class PhysicMaterialTable {
 		public:
 			virtual void AddPhysicMaterial(const string_t& materialName, std::auto_ptr<p2d::Material> materialPtr);
-			virtual p2d::Material* GetPhysicMaterial(const string_t& materialName);
+			virtual p2d::Material& GetPhysicMaterial(const string_t& materialName);
 			virtual bool HasPhysicMaterial(const string_t& materialName);
 		private:
 			typedef boost::shared_ptr<p2d::Material> MaterialPtr;

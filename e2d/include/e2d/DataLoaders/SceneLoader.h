@@ -7,14 +7,14 @@ namespace e2d {
 	namespace loaders {
 		class SceneLoader {
 		public:
-			SceneLoader(engine::Scene& scene);
+			SceneLoader(engine::IResourceController& resourceController);
 			~SceneLoader();
 			
 			void LoadScene(std::istream& inputStream);
 
 			std::auto_ptr<engine::IEntity> LoadEntity(std::istream& inputStream);
-			r2d::IMaterial* LoadGraphicMaterial(std::istream& inputStream);
-			p2d::Material* LoadPhysicMaterial(std::istream& inputStream);
+			r2d::IMaterial& LoadGraphicMaterial(std::istream& inputStream);
+			p2d::Material& LoadPhysicMaterial(std::istream& inputStream);
 
 			const IGraphicShapeLoader& GetGraphicShapeLoader(const string_t& shapeTypeName);
 			const IPhysicShapeLoader& GetPhysicShapeLoader(const string_t& shapeTypeName);
@@ -25,7 +25,7 @@ namespace e2d {
 			void AddPhysicShapeLoader(const string_t& shapeTypeName, std::auto_ptr<IPhysicShapeLoader> loaderPtr);
 			void AddEntityLoader(const string_t& shapeTypeName, std::auto_ptr<IEntityLoader> loaderPtr);
 
-			engine::Scene& m_scene;
+			engine::IResourceController& m_resourceController;
 
 			typedef boost::shared_ptr<IGraphicShapeLoader> IGraphicShapeLoaderPtr;
 			typedef boost::shared_ptr<IPhysicShapeLoader> IPhysicShapeLoaderPtr;

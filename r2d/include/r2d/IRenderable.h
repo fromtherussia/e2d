@@ -16,7 +16,7 @@ namespace r2d {
 	*/
 	class IRenderable {
 	public:
-		IRenderable(IMaterial* materialPtr);
+		IRenderable(IMaterial& material);
 		virtual ~IRenderable() {};
 		// Transformations
 		virtual void ApplyTransformations() const = 0;
@@ -36,7 +36,7 @@ namespace r2d {
 		virtual int GetZ() const = 0;
 		virtual int GetMaterialId() const;
 		IMaterial* GetMaterial() const {
-			return m_materialPtr;
+			return &m_material;
 		}
 		// Rendering
 		virtual void AddToRenderQueue() const = 0;
@@ -48,7 +48,7 @@ namespace r2d {
 		bool m_isRotationOriginSet;
 		
 	private:
-		IMaterial* m_materialPtr;
+		IMaterial& m_material;
 	};
 }
 

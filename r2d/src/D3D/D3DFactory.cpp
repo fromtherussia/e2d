@@ -48,10 +48,10 @@ namespace r2d {
 		);
 	}
 
-	std::auto_ptr<IDynamicGeometeryObject> D3DFactory::CreateGraphicObject(IMaterial* materialPtr, const Polygon2d& geometry, const Rect& uv, int z, const AnimationProperties& animationProperties) const {
+	std::auto_ptr<IDynamicGeometeryObject> D3DFactory::CreateGraphicObject(IMaterial& material, const Polygon2d& geometry, const Rect& uv, int z, const AnimationProperties& animationProperties) const {
 		return std::auto_ptr<IDynamicGeometeryObject>(
 			new D3DDynamicGeometeryObject(
-				m_renderContext, materialPtr, geometry, uv, z, animationProperties
+				m_renderContext, material, geometry, uv, z, animationProperties
 			)
 		);
 	}

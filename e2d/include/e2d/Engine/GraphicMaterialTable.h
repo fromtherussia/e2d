@@ -8,7 +8,7 @@ namespace e2d {
 		class GraphicMaterialTable {
 		public:
 			virtual void AddGraphicMaterial(const string_t& materialName, std::auto_ptr<r2d::IMaterial> materialPtr);
-			virtual r2d::IMaterial* GetGraphicMaterial(const string_t& materialName);
+			virtual r2d::IMaterial& GetGraphicMaterial(const string_t& materialName);
 			virtual bool HasGraphicMaterial(const string_t& materialName);
 		private:
 			typedef boost::shared_ptr<r2d::IMaterial> IMaterialPtr;

@@ -150,6 +150,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	cameraPtr = factoryPtr->CreateCamera(Rect(-400.0f, -300.0f, 400.0f, 300.0f));
 
 
+	// Init graphics
+	//std::auto_ptr<r2d::IMaterial> graphicMaterialPtr = factoryPtr->CreateMaterial(
+
+	//)
+	//factoryPtr->CreateGraphicObject(
+
 	// Init physics
 	p2d::Material material;
 	p2d::BodyInitialMotion motion;

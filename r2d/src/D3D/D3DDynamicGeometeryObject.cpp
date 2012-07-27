@@ -14,8 +14,8 @@
 #include "r2d/D3D/D3DDynamicGeometeryObject.h"
 
 namespace r2d {
-	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(D3DRenderContext& renderContext, IMaterial* materialPtr, const Polygon2d& geometry, const Rect& uv, int z, const AnimationProperties& animationProperties):
-		IDynamicGeometeryObject(materialPtr),
+	D3DDynamicGeometeryObject::D3DDynamicGeometeryObject(D3DRenderContext& renderContext, IMaterial& material, const Polygon2d& geometry, const Rect& uv, int z, const AnimationProperties& animationProperties):
+		IDynamicGeometeryObject(material),
 		m_renderContext(renderContext),
 		m_vertexBuffer(NULL),
 		m_isAnimated(animationProperties.m_useAnimation),

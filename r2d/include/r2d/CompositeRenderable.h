@@ -6,7 +6,7 @@
 namespace r2d {
 	class CompositeRenderable: public IRenderable {
 	public:
-		CompositeRenderable(IRenderContext& renderContext, IMaterial* materialPtr);
+		CompositeRenderable(IRenderContext& renderContext, IMaterial& material);
 		virtual ~CompositeRenderable();
 		// Adding renderable objects
 		CompositeRenderable& AddRenderable(std::auto_ptr<IRenderable> renderablePtr, vec2 offset);

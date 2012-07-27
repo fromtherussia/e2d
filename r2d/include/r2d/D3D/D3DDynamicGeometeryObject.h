@@ -10,7 +10,7 @@ namespace r2d {
 	public:
 		D3DDynamicGeometeryObject(
 			D3DRenderContext& renderContext,
-			IMaterial* materialPtr,
+			IMaterial& material,
 			const Polygon2d& geometry,
 			const Rect& uv,
 			int z,

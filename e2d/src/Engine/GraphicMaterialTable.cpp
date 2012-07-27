@@ -9,9 +9,9 @@ namespace e2d {
 			m_graphicMaterialTable[materialName] = IMaterialPtr(materialPtr.release());
 		}
 
-		r2d::IMaterial* GraphicMaterialTable::GetGraphicMaterial(const string_t& materialName) {
+		r2d::IMaterial& GraphicMaterialTable::GetGraphicMaterial(const string_t& materialName) {
 			CGL_CHECK(m_graphicMaterialTable.count(materialName) != 0);
-			return m_graphicMaterialTable[materialName].get();
+			return *m_graphicMaterialTable[materialName];
 		}
 
 		bool GraphicMaterialTable::HasGraphicMaterial(const string_t& materialName) {

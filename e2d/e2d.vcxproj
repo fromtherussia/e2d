@@ -85,6 +85,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\DataLoaders\ChainShapeLoader.cpp" />
     <ClCompile Include="src\DataLoaders\SceneLoader.cpp" />
     <ClCompile Include="src\Engine\GraphicMaterialTable.cpp" />
     <ClCompile Include="src\Engine\PhysicMaterialTable.cpp" />
@@ -100,6 +101,7 @@
     <ClCompile Include="src\DataLoaders\DynamicGeometryObjectLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\e2d\DataLoaders\ChainShapeLoader.h" />
     <ClInclude Include="include\e2d\Engine\Common.h" />
     <ClInclude Include="include\e2d\Engine\GraphicMaterialTable.h" />
     <ClInclude Include="include\e2d\Engine\IEntityFactory.h" />

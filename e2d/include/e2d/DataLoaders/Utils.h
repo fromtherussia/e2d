@@ -39,15 +39,18 @@ namespace e2d {
 			variableType variable; \
 			LoadPolygon(node, variable);
 
+		#define LOAD_POLYGONAL_CHAIN_FROM_NODE(node, variableType, variable) \
+			variableType variable; \
+			LoadPolygonalChain(node, variable);
+
 		#define IS_PARAM_EXISTS(node, paramName) IsParamExists(node, paramName)
 
 		#define HAS_CHILD(node, childPath) HasChild(node, childPath)
 
 		bool IsParamExists(boost::property_tree::ptree& node, const string_t& attributeName);
-
 		bool HasChild(boost::property_tree::ptree& node, const string_t& childPath);
-
 		void LoadPolygon(boost::property_tree::ptree& polygonNode, Polygon2d& polygon);
+		void LoadPolygonalChain(boost::property_tree::ptree& polygonNode, PolygonalChain2d& polygonalChain);
 	}
 }
 

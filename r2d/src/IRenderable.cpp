@@ -3,13 +3,13 @@
 #include "r2d/IRenderable.h"
 
 namespace r2d {
-	IRenderable::IRenderable(IMaterial* materialPtr):
-		m_materialPtr(materialPtr),
+	IRenderable::IRenderable(IMaterial& material):
+		m_material(material),
 		m_isRotationOriginSet(false) {
 	}
 
 	int IRenderable::GetMaterialId() const {
-		return m_materialPtr->GetMaterialId();
+		return m_material.GetMaterialId();
 	}
 
 	void IRenderable::SetRotationOrigin(const vec2& rotationOrigin) {
