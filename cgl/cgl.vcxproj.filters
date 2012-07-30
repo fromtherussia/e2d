@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\CountdownCounter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Exception.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameCounter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FrameTimeCounter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GeometryUtils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Polygon.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolygonalChain.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Stopwatch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TgaLoader.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TypesParser.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\cgl\Circle.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Utils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\CountdownCounter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Exception.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\FrameCounter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\FrameTimeCounter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\GeometryUtils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\IMovingAnimation.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\ITimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\MathTypes.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\ParabolicMoving.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Polygon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\PolygonalChain.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Rect.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Stopwatch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\TgaLoader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\Types.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cgl\TypesParser.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{594679db-d7b9-4806-bebd-5a2f6b72e3b8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

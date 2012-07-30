@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\ChainShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CircleShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PolygonShape.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LengthJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PulleyJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="src\IBody.cpp">
+      <Filter>Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CompositeBody.cpp">
+      <Filter>Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SimpleBody.cpp">
+      <Filter>Bodies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\World.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\p2d\ChainShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\CircleShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\IShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\PolygonShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\LengthJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\PulleyJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\IJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\IBody.h">
+      <Filter>Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\CompositeBody.h">
+      <Filter>Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\SimpleBody.h">
+      <Filter>Bodies</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\World.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\DebugRenderer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\p2d\Utils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Joints">
+      <UniqueIdentifier>{f90d1733-89e1-4a7a-ac5b-384acd8a6d78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bodies">
+      <UniqueIdentifier>{a3861f47-ad0e-4bc7-b512-8e1d79b28bd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shapes">
+      <UniqueIdentifier>{8f77eb3e-f9da-4fff-815e-216dc1a76972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{be329545-6a20-42d1-b6ad-d863c19b6060}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

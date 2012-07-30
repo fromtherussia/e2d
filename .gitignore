@@ -1,7 +1,7 @@
 *.user
 *.suo
 *.ncb
-*.filters
 *.sdf
+*.opensdf
 ipch/*
 Build/*

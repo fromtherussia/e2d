@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\Engine\AbstractEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\AbstractEntityLoader.cpp">
+      <Filter>DataLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\IEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\ResourceLoader.cpp">
+      <Filter>DataLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\PhysicMaterialTable.cpp">
+      <Filter>Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\GraphicMaterialTable.cpp">
+      <Filter>Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Scene.cpp">
+      <Filter>Management</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\Utils.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\SimplePolygonDestructor.cpp">
+      <Filter>Entities\PolygonDestruction</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\SceneLoader.cpp">
+      <Filter>DataLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\PolygonShapeLoader.cpp">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\CircleShapeLoader.cpp">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\DynamicGeometryObjectLoader.cpp">
+      <Filter>DataLoaders\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DataLoaders\ChainShapeLoader.cpp">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\e2d\Engine\AbstractEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\AbstractEntityLoader.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\DataLoadersConsts.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\IEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\IEntityLoader.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\ResourceLoader.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\PhysicMaterialTable.h">
+      <Filter>Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\GraphicMaterialTable.h">
+      <Filter>Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\DestructibleEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\IEntityFactory.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\SceneOptimization.h">
+      <Filter>Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\Scene.h">
+      <Filter>Management</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\Common.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\Utils.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\SimplePolygonDestructor.h">
+      <Filter>Entities\PolygonDestruction</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\IPolygonDestructor.h">
+      <Filter>Entities\PolygonDestruction</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\SceneLoader.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\PolygonShapeLoader.h">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\CircleShapeLoader.h">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\DynamicGeometryObjectLoader.h">
+      <Filter>DataLoaders\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\IGraphicShapeLoader.h">
+      <Filter>DataLoaders\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\IPhysicShapeLoader.h">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\DataLoaders\ChainShapeLoader.h">
+      <Filter>DataLoaders\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\e2d\Engine\IResourceController.h">
+      <Filter>DataLoaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{05f8b9e6-8333-4877-a9e7-f8f131327055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataLoaders">
+      <UniqueIdentifier>{41d20807-6e11-4812-a073-9bb2ba5f569e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{22a64b79-c17f-46fb-8cef-db557c7261e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Management">
+      <UniqueIdentifier>{b1452f47-7cd2-429a-94e0-67732fca082b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\PolygonDestruction">
+      <UniqueIdentifier>{057b9099-5dd7-4a81-9c6c-a5b1ec2c7fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataLoaders\Physics">
+      <UniqueIdentifier>{2afe41db-743e-4f71-9f47-4e9eb98dda54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DataLoaders\Graphics">
+      <UniqueIdentifier>{215c7410-d658-4c1d-8723-b6736f81d448}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
